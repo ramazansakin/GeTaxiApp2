@@ -1,0 +1,29 @@
+server:
+  port: 9000
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
+logging:
+  pattern: 
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+              
+zuul:
+  routes:
+    employee:
+      path: /users/**
+      serviceId: user-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+  security:
+    enabled: false
