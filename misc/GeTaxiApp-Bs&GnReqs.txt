@@ -1,0 +1,23 @@
+GeTaxi App Requirements (Draft)
+
+- Microservices architecture via spring boot for backend services
+- Kafka for data-streaming such as passenger, driver location, status etc.
+- Elasticsearch for easy & fast matching
+- Docker & Compose - K8s
+
+
+
+Detail:
+# Microservices architecture:
+
+>> Eureka Service Discovery : service discovery & registration
+
+>> Cloud Api Gateway: api routing, security, fallback etc.
+
+>> Hystrix Dashboard: service availability, request-response success/fail rating
+
+>> Cloud Config Server: centralizing services' configs
+
+>> Zipkin & Sleuth: Easy log tracing, apis' communications & req/res status
+
+>> User Service: user authentication & authorization
