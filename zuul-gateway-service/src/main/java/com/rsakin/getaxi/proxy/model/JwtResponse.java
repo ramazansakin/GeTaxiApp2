@@ -9,5 +9,6 @@ import java.io.Serializable;
 @RequiredArgsConstructor
 public class JwtResponse implements Serializable {
 
-    private final String jwttoken;
+    private final String username;
+    private final String token;
 }

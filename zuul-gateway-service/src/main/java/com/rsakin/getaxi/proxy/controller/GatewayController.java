@@ -35,14 +35,14 @@ public class GatewayController {
     private JwtUserDetailsService userDetailsService;
 
     @PostMapping(value = "/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody @Valid JwtRequest authenticationRequest) {
+    public ResponseEntity<JwtResponse> createAuthenticationToken(@RequestBody @Valid JwtRequest authenticationRequest) {
 
         try {
             authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
             final UserDetails userDetails = userDetailsService
                     .loadUserByUsername(authenticationRequest.getUsername());
             final String token = jwtTokenUtil.generateToken(userDetails);
-            return ResponseEntity.ok(new JwtResponse(token));
+            return ResponseEntity.ok(new JwtResponse(authenticationRequest.getUsername(), token));
         } catch (Exception e) {
             log.error("createAuthenticationToken : " + e.getMessage());
             throw new AuthenticationServiceException("Not authenticated  user [" + authenticationRequest.getUsername() + "]");
