@@ -75,6 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers(
                 "/v2/api-docs",
+                "/users/v2/api-docs",
                 "/configuration/ui",
                 "/hystrix/**",
                 "/actuator/**",
