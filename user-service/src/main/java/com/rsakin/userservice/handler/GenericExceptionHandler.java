@@ -10,9 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -24,23 +24,32 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
-@ControllerAdvice
+@RestControllerAdvice
 public class GenericExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({
             JsonParseException.class,
-            InvalidRequestException.class,
             ValidationException.class,
             NotValidPasswordException.class
     })
     public ResponseEntity<Map<String, String>> exception(ValidationException ex) {
+        return returnBadRequest(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidRequestException.class)
+    public ResponseEntity<Map<String, String>> invalidRequestExceptionHandling(InvalidRequestException ex) {
+        return returnBadRequest(ex.getMessage());
+    }
+
+    private ResponseEntity<Map<String, String>> returnBadRequest(String message) {
         Map<String, String> response = prepareResponse(
-                ex.getMessage(),
+                message,
                 "Please enter a valid entity with proper constraints",
                 HttpStatus.BAD_REQUEST.toString());
-        log.info("Entity is not valid.", ex);
+        log.info("Entity is not valid.", message);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Map<String, String>> exception(NotFoundException ex) {

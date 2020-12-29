@@ -10,6 +10,7 @@ import com.rsakin.userservice.repository.UserRepository;
 import com.rsakin.userservice.service.AddressService;
 import com.rsakin.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -67,11 +69,18 @@ public class UserServiceImpl implements UserService {
     @CacheEvict(value = "users", allEntries = true)
     @Override
     public UserDTO addOne(User user) {
-        // commented out because gateway service encode/decode the pass
+//        commented out because gateway service encode/decode the pass
 //        String encryptedPassword = passwordEncoder.encode(user.getPassword());
 //        user.setPassword(encryptedPassword);
-        User save = userRepository.save(user);
-        return modelMapper.map(save, UserDTO.class);
+        User save;
+        try {
+            save = userRepository.save(user);
+            return modelMapper.map(save, UserDTO.class);
+        } catch (Exception e) {
+            // when trying to add the same entity
+            log.error("Error occurred while adding new user.", e);
+            throw new InvalidRequestException("User is already defined!");
+        }
     }
 
     @CacheEvict(value = "users", allEntries = true)
