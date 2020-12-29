@@ -41,3 +41,9 @@ management:
         include: hystrix.stream
   security:
     enabled: false
+
+endpoints.enabled: false
+
+endpoints:
+  info.enabled: true
+  health.enabled: true
