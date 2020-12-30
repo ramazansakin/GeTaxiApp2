@@ -1,6 +1,7 @@
 package com.rsakin.getaxi.proxy.advice;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.rsakin.getaxi.proxy.exception.InvalidRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

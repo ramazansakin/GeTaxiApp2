@@ -1,4 +1,4 @@
-package com.rsakin.getaxi.proxy.advice;
+package com.rsakin.getaxi.proxy.exception;
 
 public class InvalidRequestException extends RuntimeException {
     public InvalidRequestException(String message) {
