@@ -14,6 +14,8 @@ import java.io.IOException;
 @Order(1)
 public class RequestFilter implements Filter {
 
+    public static final String UNKNOWN = "unknown";
+
     @Override
     public void init(final FilterConfig filterConfig) {
         // init anything u wanna use
@@ -25,7 +27,8 @@ public class RequestFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        log.info("Logging Request  {} : {} : {}", req.getMethod(), req.getRequestURI(), req.getRequestURL());
+        String clientIpAddr = getClientIpAddr(req);
+        log.info("Logging Request  {} : {} : {}", req.getMethod(), req.getRequestURL(), clientIpAddr);
         chain.doFilter(request, response);
         log.info("Logging Response :{}", res.getContentType());
     }
@@ -34,5 +37,25 @@ public class RequestFilter implements Filter {
     public void destroy() {
         // delete, close issues
         log.warn("Destructing filter :{}", this);
+    }
+
+    private String getClientIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
     }
 }
