@@ -20,7 +20,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 @RefreshScope
-@CrossOrigin("*")
 @RequestMapping("/api/user")
 public class UserController {
 

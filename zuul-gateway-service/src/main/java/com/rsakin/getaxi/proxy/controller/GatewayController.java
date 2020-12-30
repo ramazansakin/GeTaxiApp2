@@ -22,7 +22,7 @@ import javax.validation.Valid;
 @Validated
 @RestController
 @Slf4j
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class GatewayController {
 
     @Autowired
