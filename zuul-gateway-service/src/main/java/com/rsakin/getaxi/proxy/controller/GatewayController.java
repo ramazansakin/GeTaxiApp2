@@ -50,7 +50,7 @@ public class GatewayController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<UserDTO> saveUser(@RequestBody @Valid User user) {
+    public ResponseEntity<UserDTO> saveUser(@Valid @RequestBody User user) {
         return ResponseEntity.ok(userDetailsService.save(user));
     }
 
