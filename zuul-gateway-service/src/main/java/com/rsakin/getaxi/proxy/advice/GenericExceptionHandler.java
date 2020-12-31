@@ -5,6 +5,7 @@ import com.rsakin.getaxi.proxy.exception.InvalidRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -25,9 +26,14 @@ public class GenericExceptionHandler extends ResponseEntityExceptionHandler {
         return returnBadRequest(ex.getMessage());
     }
 
-    @ExceptionHandler(InvalidRequestException.class)
-    public ResponseEntity<Map<String, String>> invalidRequestExceptionHandling(InvalidRequestException ex) {
-        return returnBadRequest(ex.getMessage());
+    @ExceptionHandler({AuthenticationServiceException.class})
+    public ResponseEntity<Map<String, String>> handleAuthenticationServiceException(AuthenticationServiceException ex) {
+        Map<String, String> response = prepareResponse(
+                ex.getMessage(),
+                "Please register before authentication.",
+                HttpStatus.UNAUTHORIZED.toString());
+        log.info("Unauthenticated user - ", ex);
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 
     // If not found specific exception, use this
