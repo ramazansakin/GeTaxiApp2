@@ -1,6 +1,5 @@
 package com.rsakin.getaxi.proxy.service;
 
-import com.rsakin.getaxi.proxy.exception.InvalidRequestException;
 import com.rsakin.getaxi.proxy.dao.feign.UserServiceFeign;
 import com.rsakin.getaxi.proxy.dao.model.User;
 import com.rsakin.getaxi.proxy.dao.model.UserDTO;
@@ -36,13 +35,8 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     public UserDTO save(User user) {
-        try {
-            user.setPassword(bcryptEncoder.encode(user.getPassword()));
-            ResponseEntity<UserDTO> userDTOResponseEntity = userServiceFeign.save(user);
-            return userDTOResponseEntity.getBody();
-        } catch (Exception ex) {
-            throw new InvalidRequestException(ex.getMessage());
-        }
-
+        user.setPassword(bcryptEncoder.encode(user.getPassword()));
+        ResponseEntity<UserDTO> userDTOResponseEntity = userServiceFeign.save(user);
+        return userDTOResponseEntity.getBody();
     }
 }
