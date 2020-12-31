@@ -2,6 +2,7 @@ package com.rsakin.getaxi.proxy.advice;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.rsakin.getaxi.proxy.exception.InvalidRequestException;
+import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,12 @@ public class GenericExceptionHandler extends ResponseEntityExceptionHandler {
         return returnBadRequest(ex.getMessage());
     }
 
-    @ExceptionHandler({AuthenticationServiceException.class})
+    @ExceptionHandler(FeignException.class)
+    public ResponseEntity<Map<String, String>> handleFeignException(FeignException ex) {
+        return returnBadRequest(ex.getMessage());
+    }
+
+    @ExceptionHandler(AuthenticationServiceException.class)
     public ResponseEntity<Map<String, String>> handleAuthenticationServiceException(AuthenticationServiceException ex) {
         Map<String, String> response = prepareResponse(
                 ex.getMessage(),
