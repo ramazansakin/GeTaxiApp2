@@ -36,11 +36,6 @@ public class GenericExceptionHandler extends ResponseEntityExceptionHandler {
         return returnBadRequest(ex.getMessage());
     }
 
-    @ExceptionHandler(InvalidRequestException.class)
-    public ResponseEntity<Map<String, String>> invalidRequestExceptionHandling(InvalidRequestException ex) {
-        return returnBadRequest(ex.getMessage());
-    }
-
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Map<String, String>> exception(NotFoundException ex) {
         Map<String, String> response = prepareResponse(
