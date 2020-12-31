@@ -1,12 +1,11 @@
 package com.rsakin.getaxi.proxy.util;
 
-import com.rsakin.getaxi.proxy.exception.NotValidPasswordException;
+import com.google.common.base.Joiner;
 import org.passay.*;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Arrays;
-import java.util.List;
 
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
 
@@ -33,9 +32,11 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
             return true;
         }
         // if not valid, set messages
-        List<String> messages = validator.getMessages(result);
-        String messageTemplate = String.join(",", messages);
+        context.disableDefaultConstraintViolation();
+        context.buildConstraintViolationWithTemplate(
+                Joiner.on(",").join(validator.getMessages(result)))
+                .addConstraintViolation();
 
-        throw new NotValidPasswordException(messageTemplate);
+        return false;
     }
 }

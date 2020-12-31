@@ -1,6 +1,8 @@
 package com.rsakin.userservice.exception;
 
-public class NotValidPasswordException extends RuntimeException {
+import javax.validation.ValidationException;
+
+public class NotValidPasswordException extends ValidationException {
     public NotValidPasswordException(String message) {
         super(message);
     }
