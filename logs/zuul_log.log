@@ -1,0 +1,88 @@
+2020-12-31 10:53:49 - o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.1.6.Final
+2020-12-31 10:53:49 - o.s.c.c.c.ConfigServicePropertySourceLocator - Fetching config from server at : http://localhost:8888
+2020-12-31 10:53:50 - o.s.c.c.c.ConfigServicePropertySourceLocator - Located environment: name=zuul-gateway-service, profiles=[default], label=null, version=null, state=null
+2020-12-31 10:53:50 - o.s.c.b.c.PropertySourceBootstrapConfiguration - Located property source: [BootstrapPropertySource {name='bootstrapProperties-classpath:/config/zuul-gateway-service.yml'}]
+2020-12-31 10:53:50 - c.r.g.proxy.ZuulGatewayApplication - No active profile set, falling back to default profiles: default
+2020-12-31 10:53:50 - o.s.boot.actuate.endpoint.EndpointId - Endpoint ID 'hystrix.stream' contains invalid characters, please migrate to a valid format.
+2020-12-31 10:53:51 - o.s.boot.actuate.endpoint.EndpointId - Endpoint ID 'service-registry' contains invalid characters, please migrate to a valid format.
+2020-12-31 10:53:51 - o.s.cloud.context.scope.GenericScope - BeanFactory id=dc22401c-42f2-3b43-a053-902ab77d3d7e
+2020-12-31 10:53:51 - o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@49433c98' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-31 10:53:51 - o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-12-31 10:53:51 - o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9000 (http)
+2020-12-31 10:53:51 - o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9000"]
+2020-12-31 10:53:51 - o.a.catalina.core.StandardService - Starting service [Tomcat]
+2020-12-31 10:53:51 - o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.39]
+2020-12-31 10:53:51 - o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-12-31 10:53:51 - o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1412 ms
+2020-12-31 10:53:51 - c.n.c.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-12-31 10:53:51 - c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-12-31 10:53:51 - c.n.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@33d28f0a
+2020-12-31 10:53:53 - o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration - Eureka HTTP Client uses Jersey
+2020-12-31 10:53:53 - o.s.b.a.e.w.ServletEndpointRegistrar - Registered '/actuator/hystrix.stream' to hystrix.stream-actuator-endpoint
+2020-12-31 10:53:53 - c.r.g.proxy.filter.JwtRequestFilter - Filter 'jwtRequestFilter' configured for use
+2020-12-31 10:53:53 - o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+2020-12-31 10:53:53 - c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+2020-12-31 10:53:53 - c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+2020-12-31 10:53:53 - c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+2020-12-31 10:53:53 - c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+2020-12-31 10:53:53 - c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+2020-12-31 10:53:53 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 10:53:54 - c.netflix.discovery.DiscoveryClient - Disable delta property : false
+2020-12-31 10:53:54 - c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+2020-12-31 10:53:54 - c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+2020-12-31 10:53:54 - c.netflix.discovery.DiscoveryClient - Application is null : false
+2020-12-31 10:53:54 - c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+2020-12-31 10:53:54 - c.netflix.discovery.DiscoveryClient - Application version is -1: true
+2020-12-31 10:53:54 - c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+2020-12-31 10:53:54 - c.netflix.discovery.DiscoveryClient - The response status is 200
+2020-12-31 10:53:54 - c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+2020-12-31 10:53:54 - c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2020-12-31 10:53:54 - c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1609401234080 with initial instances count: 2
+2020-12-31 10:53:54 - o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+2020-12-31 10:53:54 - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/v2/api-docs'], []
+2020-12-31 10:53:54 - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/users/v2/api-docs'], []
+2020-12-31 10:53:54 - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/configuration/ui'], []
+2020-12-31 10:53:54 - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/hystrix'], []
+2020-12-31 10:53:54 - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/actuator/**'], []
+2020-12-31 10:53:54 - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/swagger-resources/**'], []
+2020-12-31 10:53:54 - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/configuration/security'], []
+2020-12-31 10:53:54 - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/swagger-ui.html'], []
+2020-12-31 10:53:54 - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/hystrix.stream/**'], []
+2020-12-31 10:53:54 - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/webjars/**'], []
+2020-12-31 10:53:54 - o.s.s.web.DefaultSecurityFilterChain - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@753e4eb5, org.springframework.security.web.context.SecurityContextPersistenceFilter@60b4c754, org.springframework.security.web.header.HeaderWriterFilter@2f2dc407, org.springframework.web.filter.CorsFilter@713497cd, org.springframework.security.web.authentication.logout.LogoutFilter@1aaf73b7, com.rsakin.getaxi.proxy.filter.JwtRequestFilter@7cb29ea8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@56d742ad, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@723c5f86, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@63318b56, org.springframework.security.web.session.SessionManagementFilter@2e7e84f8, org.springframework.security.web.access.ExceptionTranslationFilter@67ceaa9, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1d0f7bcf]
+2020-12-31 10:53:54 - s.d.s.w.PropertySourcedRequestMappingHandlerMapping - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2020-12-31 10:53:54 - c.n.c.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-12-31 10:53:54 - c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-12-31 10:53:54 - o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-31 10:53:54 - o.s.c.l.c.BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger - You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2020-12-31 10:53:55 - o.s.c.n.zuul.ZuulFilterInitializer - Starting filter initializer
+2020-12-31 10:53:55 - o.s.c.n.e.s.EurekaServiceRegistry - Registering application ZUUL-GATEWAY-SERVICE with eureka with status UP
+2020-12-31 10:53:55 - c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1609401235181, current=UP, previous=STARTING]
+2020-12-31 10:53:55 - c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-GATEWAY-SERVICE/DESKTOP-LHI7496:zuul-gateway-service:9000: registering service...
+2020-12-31 10:53:55 - o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-9000"]
+2020-12-31 10:53:55 - o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9000 (http) with context path ''
+2020-12-31 10:53:55 - o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 9000
+2020-12-31 10:53:55 - c.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL-GATEWAY-SERVICE/DESKTOP-LHI7496:zuul-gateway-service:9000 - registration status: 204
+2020-12-31 10:53:55 - s.d.s.w.p.DocumentationPluginsBootstrapper - Context refreshed
+2020-12-31 10:53:55 - s.d.s.w.p.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+2020-12-31 10:53:55 - s.d.s.w.s.ApiListingReferenceScanner - Scanning for api listing references
+2020-12-31 10:53:55 - c.r.g.proxy.ZuulGatewayApplication - Started ZuulGatewayApplication in 6.84 seconds (JVM running for 7.648)
+2020-12-31 10:53:56 - o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-31 10:53:56 - o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-12-31 10:53:56 - o.s.c.c.c.ConfigServicePropertySourceLocator - Fetching config from server at : http://localhost:8888
+2020-12-31 10:53:56 - o.s.web.servlet.DispatcherServlet - Completed initialization in 12 ms
+2020-12-31 10:53:56 - o.s.c.c.c.ConfigServicePropertySourceLocator - Located environment: name=zuul-gateway-service, profiles=[default], label=null, version=null, state=null
+2020-12-31 10:58:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:03:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:08:27 - c.r.g.proxy.filter.JwtRequestFilter - JWT Token does not begin with Bearer String
+2020-12-31 11:08:34 - c.r.g.proxy.filter.JwtRequestFilter - JWT Token does not begin with Bearer String
+2020-12-31 11:08:38 - c.n.config.ChainedDynamicProperty - Flipping property: user-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2020-12-31 11:08:38 - c.n.u.c.ShutdownEnabledTimer - Shutdown hook installed for: NFLoadBalancer-PingTimer-user-service
+2020-12-31 11:08:38 - c.n.loadbalancer.BaseLoadBalancer - Client: user-service instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=user-service,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2020-12-31 11:08:38 - c.n.l.DynamicServerListLoadBalancer - Using serverListUpdater PollingServerListUpdater
+2020-12-31 11:08:38 - c.n.config.ChainedDynamicProperty - Flipping property: user-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2020-12-31 11:08:38 - c.n.l.DynamicServerListLoadBalancer - DynamicServerListLoadBalancer for client user-service initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=user-service,current list of Servers=[localhost:9001],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:localhost:9001;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 02:00:00 EET 1970;	First connection made: Thu Jan 01 02:00:00 EET 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@6f00595c
+2020-12-31 11:08:39 - c.n.config.ChainedDynamicProperty - Flipping property: user-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2020-12-31 11:08:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
