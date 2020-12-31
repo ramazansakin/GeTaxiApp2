@@ -86,3 +86,24 @@
 ]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@6f00595c
 2020-12-31 11:08:39 - c.n.config.ChainedDynamicProperty - Flipping property: user-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
 2020-12-31 11:08:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:13:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:18:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:23:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:28:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:33:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:38:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:43:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:48:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:53:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:58:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:03:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:08:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:13:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:18:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:23:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:28:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:33:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:38:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:43:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:48:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:53:54 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration

@@ -88,3 +88,60 @@
 2020-12-31 11:08:38 - c.r.userservice.filter.RequestFilter - Logging Response :application/json
 2020-12-31 11:08:38 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/api/user/all : 0:0:0:0:0:0:0:1
 2020-12-31 11:08:38 - c.r.userservice.filter.RequestFilter - Logging Response :application/json
+2020-12-31 11:10:43 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/v2/api-docs : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:43 - c.r.userservice.filter.RequestFilter - Logging Response :application/json
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/swagger-ui.html : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Response :text/html
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/webjars/springfox-swagger-ui/springfox.css : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/webjars/springfox-swagger-ui/swagger-ui.css : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/webjars/springfox-swagger-ui/swagger-ui-bundle.js : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/webjars/springfox-swagger-ui/springfox.js : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/webjars/springfox-swagger-ui/swagger-ui-standalone-preset.js : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Response :text/css
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Response :text/css
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Response :application/javascript
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Response :application/javascript
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Response :application/javascript
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/swagger-resources/configuration/ui : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/webjars/springfox-swagger-ui/favicon-32x32.png : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Response :image/png
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Response :application/json
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/swagger-resources/configuration/security : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Response :application/json
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/swagger-resources : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Response :application/json
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/v2/api-docs : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/ : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Response :null
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Response :application/json
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/webjars/springfox-swagger-ui/fonts/titillium-web-v6-latin-700.woff2 : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/csrf : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Response :null
+2020-12-31 11:10:47 - c.r.userservice.filter.RequestFilter - Logging Response :application/font-woff2
+2020-12-31 11:10:48 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/webjars/springfox-swagger-ui/fonts/open-sans-v15-latin-700.woff2 : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:48 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/webjars/springfox-swagger-ui/fonts/open-sans-v15-latin-regular.woff2 : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:48 - c.r.userservice.filter.RequestFilter - Logging Request  GET : http://localhost:9001/webjars/springfox-swagger-ui/fonts/source-code-pro-v7-latin-300.woff2 : 0:0:0:0:0:0:0:1
+2020-12-31 11:10:48 - c.r.userservice.filter.RequestFilter - Logging Response :application/font-woff2
+2020-12-31 11:10:48 - c.r.userservice.filter.RequestFilter - Logging Response :application/font-woff2
+2020-12-31 11:10:48 - c.r.userservice.filter.RequestFilter - Logging Response :application/font-woff2
+2020-12-31 11:12:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:17:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:22:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:27:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:32:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:37:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:42:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:47:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:52:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 11:57:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:02:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:07:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:12:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:17:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:22:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:27:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:32:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:37:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:42:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:47:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2020-12-31 12:52:57 - c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
