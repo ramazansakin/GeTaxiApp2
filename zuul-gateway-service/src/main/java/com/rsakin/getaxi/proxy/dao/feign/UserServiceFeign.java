@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(value = "user-service", url = "localhost:9001/api/user", fallback = UserServiceFeign.UserFeignClientFallback.class)
+@FeignClient(value = "user-service-feign", url = "localhost:9001/api/user", fallback = UserServiceFeign.UserFeignClientFallback.class)
 public interface UserServiceFeign {
 
     @GetMapping(value = "/username/{username}")
