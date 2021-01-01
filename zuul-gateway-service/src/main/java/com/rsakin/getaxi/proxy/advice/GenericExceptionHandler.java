@@ -2,6 +2,7 @@ package com.rsakin.getaxi.proxy.advice;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.rsakin.getaxi.proxy.exception.InvalidRequestException;
+import com.rsakin.getaxi.proxy.exception.ServiceUnavailableException;
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +22,16 @@ import java.util.Map;
 @Slf4j
 @RestControllerAdvice
 public class GenericExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(ServiceUnavailableException.class)
+    public ResponseEntity<Object> exception(ServiceUnavailableException exception) {
+        Map<String, String> response = prepareResponse(
+                exception.getMessage(),
+                "Please try again later or contact with IT of bla-bla",
+                HttpStatus.SERVICE_UNAVAILABLE.toString());
+        log.info("Service unavailable.", exception);
+        return new ResponseEntity<>(response, HttpStatus.SERVICE_UNAVAILABLE);
+    }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
