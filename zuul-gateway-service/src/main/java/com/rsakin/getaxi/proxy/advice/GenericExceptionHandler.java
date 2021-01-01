@@ -1,7 +1,7 @@
 package com.rsakin.getaxi.proxy.advice;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.rsakin.getaxi.proxy.exception.InvalidRequestException;
+import com.netflix.hystrix.exception.HystrixRuntimeException;
 import com.rsakin.getaxi.proxy.exception.ServiceUnavailableException;
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
@@ -25,11 +25,21 @@ public class GenericExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ServiceUnavailableException.class)
     public ResponseEntity<Object> exception(ServiceUnavailableException exception) {
+        log.info("Service unavailable.", exception);
+        return returnServiceUnavailableResponse(exception.getMessage());
+    }
+
+    @ExceptionHandler(HystrixRuntimeException.class)
+    public ResponseEntity<Object> handleHystrixRuntimeException(HystrixRuntimeException exception) {
+        log.info("Service unavailable.", exception);
+        return returnServiceUnavailableResponse(exception.getMessage());
+    }
+
+    private ResponseEntity<Object> returnServiceUnavailableResponse(String message) {
         Map<String, String> response = prepareResponse(
-                exception.getMessage(),
+                message,
                 "Please try again later or contact with IT of bla-bla",
                 HttpStatus.SERVICE_UNAVAILABLE.toString());
-        log.info("Service unavailable.", exception);
         return new ResponseEntity<>(response, HttpStatus.SERVICE_UNAVAILABLE);
     }
 
@@ -57,11 +67,13 @@ public class GenericExceptionHandler extends ResponseEntityExceptionHandler {
             ValidationException.class
     })
     public ResponseEntity<Map<String, String>> exception(ValidationException ex) {
+        log.info("Entity is not valid.", ex);
         return returnBadRequest(ex.getMessage());
     }
 
     @ExceptionHandler(FeignException.class)
     public ResponseEntity<Map<String, String>> handleFeignException(FeignException ex) {
+        log.info("Entity is not valid.", ex);
         return returnBadRequest(ex.getMessage());
     }
 
@@ -100,7 +112,6 @@ public class GenericExceptionHandler extends ResponseEntityExceptionHandler {
                 message,
                 "Please enter a valid entity with proper constraints",
                 HttpStatus.BAD_REQUEST.toString());
-        log.info("Entity is not valid.", message);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 

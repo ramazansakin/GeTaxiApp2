@@ -19,8 +19,11 @@ feign:
 hystrix:
   command:
     default:
+      circuitBreaker:
+        sleepWindowInMilliseconds: 70000
+        forceClosed: true
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 5000
-
+            timeoutInMilliseconds: 60000
+  shareSecurityContext: true

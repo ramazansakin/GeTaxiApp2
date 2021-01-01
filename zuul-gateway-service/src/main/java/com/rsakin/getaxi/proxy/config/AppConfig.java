@@ -17,12 +17,10 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 @Configuration
 public class AppConfig extends WebMvcConfigurerAdapter {
 
-	@Autowired
-	ZuulProperties properties;
-
 	@Primary
 	@Bean
 	public SwaggerResourcesProvider swaggerResourcesProvider() {
+		ZuulProperties properties = new ZuulProperties();
 		return () -> {
 			List<SwaggerResource> resources = new ArrayList<>();
 			properties.getRoutes().values()
