@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @RestController
@@ -24,6 +26,16 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+
+    private final MessageSource messageSource;
+
+    @GetMapping("/welcome")
+    public void welcome(){
+        log.info("label_de.properties : {}", messageSource.getMessage("welcome.message",
+                new Object[] {""}, Locale.GERMAN));
+        log.info("label.properties : {}", messageSource.getMessage("welcome.message",
+                new Object[] {""}, Locale.ENGLISH));
+    }
 
     @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAll() {
