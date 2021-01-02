@@ -1,4 +1,6 @@
-package com.rsakin.userservice.util;
+package com.rsakin.userservice.util.annotation;
+
+import com.rsakin.userservice.util.annotation.PasswordConstraintValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

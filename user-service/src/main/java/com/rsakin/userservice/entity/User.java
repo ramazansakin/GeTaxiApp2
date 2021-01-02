@@ -1,6 +1,6 @@
 package com.rsakin.userservice.entity;
 
-import com.rsakin.userservice.util.ValidPassword;
+import com.rsakin.userservice.util.annotation.ValidPassword;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
