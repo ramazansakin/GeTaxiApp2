@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 
     private ModelMapper modelMapper;
 
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public void setModelMapper(ModelMapper modelMapper) {
@@ -111,8 +111,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> getUsersByAddress(Integer address_id) {
-        Address one = addressService.getOne(address_id);
+    public List<UserDTO> getUsersByAddress(Integer addressId) {
+        Address one = addressService.getOne(addressId);
         List<User> allByAddress = userRepository.getAllByAddress(one);
         return allByAddress.stream()
                 .map(user -> modelMapper.map(user, UserDTO.class))
