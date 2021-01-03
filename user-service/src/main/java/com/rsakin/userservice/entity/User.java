@@ -2,6 +2,7 @@ package com.rsakin.userservice.entity;
 
 import com.rsakin.userservice.util.annotation.ValidPassword;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
