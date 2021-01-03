@@ -2,17 +2,15 @@ package com.rsakin.userservice.controller;
 
 import com.rsakin.userservice.dto.UserDTO;
 import com.rsakin.userservice.entity.User;
-import com.rsakin.userservice.filter.RequestFilter;
-import com.rsakin.userservice.repository.UserRepository;
+import com.rsakin.userservice.exception.NotFoundException;
 import com.rsakin.userservice.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
@@ -22,8 +20,8 @@ import java.util.List;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(UserController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 class UserControllerTest {
 
     @Autowired
@@ -32,14 +30,8 @@ class UserControllerTest {
     @MockBean
     private UserService userService;
 
-    @MockBean
-    private UserRepository userRepository;
-
-    @MockBean
-    private RequestFilter requestFilter;
-
     @BeforeEach
-    void setup() {
+    void printApplicationContext() {
     }
 
     @Test
@@ -55,14 +47,27 @@ class UserControllerTest {
         mockMvc.perform(get(url))
                 .andExpect(status().isOk())
                 .andDo(MockMvcResultHandlers.print());
+    }
 
+    @Test
+    void should_throw_exception_getAll() throws Exception {
+        // when
+        Mockito.when(userService.getAll())
+                .thenThrow(new NotFoundException("user"));
+
+        // then
+        String url = "/api/user/all";
+        mockMvc.perform(get(url))
+                .andExpect(status().isNotFound())
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn();
 
     }
 
     private List<UserDTO> getSampleUserDtoList(int number) {
         List<UserDTO> userDTOS = new ArrayList<>();
         for (int i = 0; i < number; i++) {
-            userDTOS.add(getSampleUser("name" + i,
+            userDTOS.add(getSampleUser(i, "name" + i,
                     "lastname" + i, "user" + i,
                     "mail" + i + "@com"));
         }
@@ -82,8 +87,9 @@ class UserControllerTest {
         return userList;
     }
 
-    private UserDTO getSampleUser(String name, String last, String username, String email) {
+    private UserDTO getSampleUser(int number, String name, String last, String username, String email) {
         return UserDTO.builder()
+                .id(number)
                 .name(name)
                 .lastname(last)
                 .username(username)
@@ -91,35 +97,4 @@ class UserControllerTest {
                 .build();
     }
 
-    @Test
-    void should_get() {
-    }
-
-    @Test
-    void testGet() {
-    }
-
-    @Test
-    void save() {
-    }
-
-    @Test
-    void update() {
-    }
-
-    @Test
-    void delete() {
-    }
-
-    @Test
-    void getAllUsersWithAddress() {
-    }
-
-    @Test
-    void testGetAllUsersWithAddress() {
-    }
-
-    @Test
-    void findByUsername() {
-    }
 }
