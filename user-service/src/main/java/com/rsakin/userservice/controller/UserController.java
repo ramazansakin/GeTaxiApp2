@@ -44,13 +44,13 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> get(@PathVariable @Range(min = 1) Integer id) {
+    public ResponseEntity<UserDTO> getById(@PathVariable @Range(min = 1) Integer id) {
         UserDTO one = userService.getOne(id);
         return new ResponseEntity<>(one, HttpStatus.OK);
     }
 
     @GetMapping("/user-by-email/{email}")
-    public ResponseEntity<UserDTO> get(@PathVariable @Email String email) {
+    public ResponseEntity<UserDTO> getByEmail(@PathVariable @Email String email) {
         UserDTO userByEmail = userService.getUserByEmail(email);
         return new ResponseEntity<>(userByEmail, HttpStatus.OK);
     }

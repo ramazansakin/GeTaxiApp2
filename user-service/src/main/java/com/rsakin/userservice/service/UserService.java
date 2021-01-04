@@ -14,13 +14,13 @@ public interface UserService {
 
     UserDTO getUserByEmail(String email);
 
-    UserDTO addOne(User address);
+    UserDTO addOne(User user);
 
-    UserDTO updateOne(User address);
+    UserDTO updateOne(User user);
 
     Map<String, String> deleteOne(Integer id);
 
-    List<UserDTO> getUsersByAddress(Integer address_id);
+    List<UserDTO> getUsersByAddress(Integer addressId);
 
     List<UserDTO> getUsersByAddressCityName(String city);
 
