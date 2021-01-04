@@ -23,8 +23,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -170,6 +169,41 @@ class UserControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    void should_update() throws Exception {
+        // stubbing
+        User stubUser = User.builder()
+                .id(1)
+                .name("name")
+                .lastname("last")
+                .email("mail@com")
+                .username("username")
+                .password("Asdsdf123*")
+                .build();
+
+        UserDTO returnedUser =
+                getSampleUserDTO(1, "new-name", "last", "username", "mail@com");
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(stubUser);
+
+
+        // when
+        // changed name "name" to "new-name"
+        Mockito.doReturn(returnedUser).when(userService).updateOne(stubUser);
+
+        // then
+        String url = "/api/user/update";
+        mockMvc.perform(put(url)
+                .content(requestJson)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(jsonPath("$.name", is(returnedUser.getName())));
     }
 
     private List<UserDTO> getSampleUserDtoList(int number) {
