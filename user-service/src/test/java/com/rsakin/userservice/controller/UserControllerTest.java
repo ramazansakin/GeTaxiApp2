@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -59,9 +60,34 @@ class UserControllerTest {
         String url = "/api/user/all";
         mockMvc.perform(get(url))
                 .andExpect(status().isNotFound())
-                .andDo(MockMvcResultHandlers.print())
-                .andReturn();
+                .andDo(MockMvcResultHandlers.print());
 
+    }
+
+    @Test
+    void should_getOne() throws Exception {
+        // when
+        UserDTO stubUser = getSampleUser(1, "name", "last", "user", "mail@com");
+        Mockito.when(userService.getOne(any(Integer.class)))
+                .thenReturn(stubUser);
+
+        // then
+        String url = "/api/user/{id}";
+        mockMvc.perform(get(url, stubUser.getId()))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    void should_NOT_getOne() throws Exception {
+        // when
+        Mockito.when(userService.getOne(any(Integer.class)))
+                .thenThrow(new NotFoundException("user not found"));
+
+        // then
+        String url = "/api/user/{id}";
+        mockMvc.perform(get(url, 1))
+                .andExpect(status().isNotFound());
     }
 
     private List<UserDTO> getSampleUserDtoList(int number) {
