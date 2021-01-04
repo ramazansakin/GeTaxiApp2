@@ -19,7 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -204,6 +206,33 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(jsonPath("$.name", is(returnedUser.getName())));
+    }
+
+    @Test
+    void should_delete() throws Exception {
+        // stubbing
+        User stubUser = User.builder()
+                .id(1)
+                .name("name")
+                .lastname("last")
+                .email("mail@com")
+                .username("username")
+                .password("Asdsdf123*")
+                .build();
+
+        Map<String, String> response = new HashMap<>();
+        response.put("Deleted", Boolean.TRUE.toString());
+
+        // when
+        // changed name "name" to "new-name"
+        Mockito.doReturn(response).when(userService).deleteOne(stubUser.getId());
+
+        // then
+        String url = "/api/user/delete/{id}";
+        mockMvc.perform(delete(url, stubUser.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.Deleted", is(response.get("Deleted"))));
+
     }
 
     private List<UserDTO> getSampleUserDtoList(int number) {
