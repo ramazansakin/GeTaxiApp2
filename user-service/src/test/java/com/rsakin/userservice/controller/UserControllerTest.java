@@ -17,8 +17,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -75,7 +77,9 @@ class UserControllerTest {
         String url = "/api/user/{id}";
         mockMvc.perform(get(url, stubUser.getId()))
                 .andExpect(status().isOk())
-                .andDo(MockMvcResultHandlers.print());
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(jsonPath("$.id", is(stubUser.getId())))
+                .andExpect(jsonPath("$.email", is(stubUser.getEmail())));
     }
 
     @Test
