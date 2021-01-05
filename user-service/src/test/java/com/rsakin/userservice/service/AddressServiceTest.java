@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
+
 public class AddressServiceTest {
 
     @InjectMocks
@@ -113,7 +114,7 @@ public class AddressServiceTest {
     }
 
     @Test
-    public void testDeleteCustomer() {
+    public void should_deleteAddress() {
         // stub
         Address address = getSampleAddressList(1).get(0);
 
