@@ -41,6 +41,7 @@ class UserControllerTest {
 
     @BeforeEach
     void printApplicationContext() {
+        // initial things here
     }
 
     @Test
