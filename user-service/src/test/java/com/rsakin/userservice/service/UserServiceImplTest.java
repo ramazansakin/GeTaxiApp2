@@ -1,13 +1,15 @@
 package com.rsakin.userservice.service;
 
 import com.rsakin.userservice.dto.UserDTO;
+import com.rsakin.userservice.entity.Address;
 import com.rsakin.userservice.entity.User;
+import com.rsakin.userservice.exception.AddressNotFoundException;
+import com.rsakin.userservice.exception.UserNotFoundException;
 import com.rsakin.userservice.repository.UserRepository;
 import com.rsakin.userservice.service.impl.UserServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -16,8 +18,11 @@ import org.modelmapper.ModelMapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceImplTest {
@@ -26,61 +31,95 @@ public class UserServiceImplTest {
     UserRepository userRepository;
 
     @Mock
-    ModelMapper modelMapper;
+    AddressService addressService;
 
-    @InjectMocks
     UserServiceImpl userService;
 
-    List<UserDTO> userDTOS = new ArrayList<>();
-    List<User> sampleUserList = new ArrayList<>();
-    UserDTO userDTO = new UserDTO();
 
     @Before
     public void setup() {
-        userDTOS = getSampleUserDtoList(8);
-        sampleUserList = getSampleUserList(8);
-
-        when(modelMapper.map(any(), any())).thenReturn(userDTO);
+        ModelMapper modelMapper = new ModelMapper();
+        userService = new UserServiceImpl(userRepository, addressService);
+        userService.setModelMapper(modelMapper);
     }
 
     @Test
     public void should_getAllUsers() {
-
         // stub
+        List<User> sampleUserList = getSampleUserList(8);
 
         // when
-        Mockito.doReturn(userDTOS)
-                .when(userRepository).findAll();
+        // Mockito.when(modelMapper.map(org.mockito.ArgumentMatchers.any(), org.mockito.ArgumentMatchers.any())).thenReturn(temp);
+        Mockito.when(userRepository.findAll()).thenReturn(sampleUserList);
 
         // then
-        userService.getAll();
+        List<UserDTO> userDTOList = userService.getAll();
 
-//        assertEquals(8, userDTOList.size());
-//        assertNotNull(userDTOList.get(0));
-//        assertEquals("name0", userDTOList.get(0).getName());
-//        assertEquals("last0", userDTOList.get(0).getLastname());
-//
+        assertEquals(8, userDTOList.size());
+        assertEquals("name0", userDTOList.get(0).getName());
+        assertEquals("lastname0", userDTOList.get(0).getLastname());
+
     }
 
+    @Test
+    public void should_getOneUser() {
+        // stub
+        User sampleUser = getSampleUserList(1).get(0);
 
-    private List<UserDTO> getSampleUserDtoList(int number) {
-        List<UserDTO> userDTOS = new ArrayList<>();
-        for (int i = 0; i < number; i++) {
-            userDTOS.add(getSampleUserDTO(i, "name" + i,
-                    "lastname" + i, "user" + i,
-                    "mail" + i + "@com"));
-        }
-        return userDTOS;
+        // when
+        Mockito.when(userRepository.findById(sampleUser.getId())).thenReturn(java.util.Optional.of(sampleUser));
+
+        // then
+        UserDTO one = userService.getOne(sampleUser.getId());
+
+        assertEquals("name0", one.getName());
+        assertEquals("lastname0", one.getLastname());
+
     }
 
-    private UserDTO getSampleUserDTO(int number, String name, String last, String username, String email) {
-        return UserDTO.builder()
-                .id(number)
-                .name(name)
-                .lastname(last)
-                .username(username)
-                .email(email)
-                .build();
+    @Test
+    public void should_createOneUser() {
+        // stub
+        User sampleUser = getSampleUserList(1).get(0);
+
+        // when
+        Mockito.when(userRepository.save(any(User.class))).thenReturn(sampleUser);
+
+        // then
+        UserDTO one = userService.addOne(sampleUser);
+
+        assertEquals(sampleUser.getName(), one.getName());
+        assertEquals(sampleUser.getLastname(), one.getLastname());
+        assertEquals(sampleUser.getEmail(), one.getEmail());
+
+    }
+
+    @Test
+    public void should_NOT_updateUser() {
+        // stub
+        User user = getSampleUserList(1).get(0);
+
+        // then
+        UserNotFoundException userNotFoundException = assertThrows(
+                UserNotFoundException.class,
+                () -> userService.updateOne(user),
+                "Expected doThing() to throw, but it didn't"
+        );
+
+        assertTrue(userNotFoundException.getMessage().contains("User not found"));
+    }
+
+    @Test
+    public void should_deleteUser() {
+        // stub
+        User user = getSampleUserList(1).get(0);
+
+        // when
+        Mockito.when(userRepository.findById(user.getId()))
+                .thenReturn(java.util.Optional.of(user));
+        doNothing().when(userRepository).delete(user);
+
+        addressService.deleteOne(user.getId());
     }
 
     private List<User> getSampleUserList(int number) {
