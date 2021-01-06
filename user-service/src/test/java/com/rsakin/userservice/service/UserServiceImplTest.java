@@ -1,9 +1,7 @@
 package com.rsakin.userservice.service;
 
 import com.rsakin.userservice.dto.UserDTO;
-import com.rsakin.userservice.entity.Address;
 import com.rsakin.userservice.entity.User;
-import com.rsakin.userservice.exception.AddressNotFoundException;
 import com.rsakin.userservice.exception.UserNotFoundException;
 import com.rsakin.userservice.repository.UserRepository;
 import com.rsakin.userservice.service.impl.UserServiceImpl;
@@ -21,7 +19,6 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -117,9 +114,12 @@ public class UserServiceImplTest {
         // when
         Mockito.when(userRepository.findById(user.getId()))
                 .thenReturn(java.util.Optional.of(user));
-        doNothing().when(userRepository).delete(user);
+        // doNothing().when(userRepository).delete(user);
 
-        addressService.deleteOne(user.getId());
+        UserDTO one = userService.getOne(user.getId());
+        addressService.deleteOne(one.getId());
+
+        assertNull(addressService.getOne(user.getId()));
     }
 
     private List<User> getSampleUserList(int number) {
