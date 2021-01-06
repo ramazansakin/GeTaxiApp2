@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.rsakin.userservice.dto.UserDTO;
+import com.rsakin.userservice.entity.Address;
 import com.rsakin.userservice.entity.User;
 import com.rsakin.userservice.exception.NotFoundException;
 import com.rsakin.userservice.service.UserService;
@@ -23,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -236,6 +238,24 @@ class UserControllerTest {
 
     }
 
+    @Test
+    void should_getByAddressId() throws Exception {
+        // stub
+        List<UserDTO> userList = getSampleUserDtoList(5);
+        UserDTO stubUser = getSampleUserDTO(1, "name", "last", "user", "mail@com");
+
+        // when
+        Mockito.when(userService.getUsersByAddress(1))
+                .thenReturn(userList);
+
+        // then
+        String url = "/api/user/all/address/{id}";
+        mockMvc.perform(get(url, 1))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(jsonPath("$", hasSize(5)));
+    }
+
     private List<UserDTO> getSampleUserDtoList(int number) {
         List<UserDTO> userDTOS = new ArrayList<>();
         for (int i = 0; i < number; i++) {
@@ -253,6 +273,7 @@ class UserControllerTest {
                 .lastname(last)
                 .username(username)
                 .email(email)
+                .address(new Address(1, "sample-city", "sample-st", 1, 1))
                 .build();
     }
 
