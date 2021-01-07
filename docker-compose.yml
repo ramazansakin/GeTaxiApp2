@@ -5,6 +5,8 @@ services:
     build: ./discovery-service
     ports:
       - '8761:8761'
+    environment:
+      - "SPRING_PROFILES_ACTIVE=docker"
     restart: on-failure
 
   config-service:
@@ -14,35 +16,43 @@ services:
       - '8888:8888'
     depends_on:
       - discovery-service
+    environment:
+      - "SPRING_PROFILES_ACTIVE=docker"
     restart: on-failure
 
-  zuul-gateway-service:
-    image: zuul-gateway-service
-    build: ./zuul-gateway-service
-    ports:
-      - '9000:9000'
-    depends_on:
-      - discovery-service
-      - config-service
-    restart: on-failure
-
-  hystrix-dashboard-service:
-    image: hystrix-dashboard-service
-    build: ./hystrix-dashboard
-    ports:
-      - '9090:9090'
-    depends_on:
-      - discovery-service
-      - config-service
-    restart: on-failure
-
-  user-service:
-    image: user-service
-    build: ./user-service
-    ports:
-      - '9001:9001'
-    depends_on:
-      - discovery-service
-      - config-service
-      - zuul-gateway-service
-    restart: on-failure
+#  zuul-gateway-service:
+#    image: zuul-gateway-service
+#    build: ./zuul-gateway-service
+#    ports:
+#      - '9000:9000'
+#    depends_on:
+#      - discovery-service
+#      - config-service
+#    environment:
+#      - "SPRING_PROFILES_ACTIVE=docker"
+#    restart: on-failure
+#
+#  hystrix-dashboard-service:
+#    image: hystrix-dashboard-service
+#    build: ./hystrix-dashboard
+#    ports:
+#      - '9090:9090'
+#    depends_on:
+#      - discovery-service
+#      - config-service
+#    environment:
+#      - "SPRING_PROFILES_ACTIVE=docker"
+#    restart: on-failure
+#
+#  user-service:
+#    image: user-service
+#    build: ./user-service
+#    ports:
+#      - '9001:9001'
+#    depends_on:
+#      - discovery-service
+#      - config-service
+#      - zuul-gateway-service
+#    environment:
+#      - "SPRING_PROFILES_ACTIVE=docker"
+#    restart: on-failure
