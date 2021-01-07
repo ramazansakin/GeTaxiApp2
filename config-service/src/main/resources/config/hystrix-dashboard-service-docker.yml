@@ -1,0 +1,20 @@
+server:
+  port: 9090
+
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "*"
+
+anagement:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka/
