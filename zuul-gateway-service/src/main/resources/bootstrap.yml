@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: native
   application:
     name: zuul-gateway-service
   cloud:
@@ -9,21 +11,16 @@ spring:
   resources:
     add-mappings: false
 
-jwt:
-  secret: jwt-sample-secret
+---
 
-feign:
-  hystrix:
-    enabled: true
-
-hystrix:
-  command:
-    default:
-      circuitBreaker:
-        sleepWindowInMilliseconds: 70000
-        forceClosed: true
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 60000
-  shareSecurityContext: true
+spring:
+  profiles: docker
+  application:
+    name: zuul-gateway-service
+  cloud:
+    config:
+      uri: http://config-service:8888
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false

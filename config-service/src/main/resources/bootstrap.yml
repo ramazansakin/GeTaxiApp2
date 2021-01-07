@@ -3,3 +3,15 @@ server:
 spring:
   profiles:
     active: native
+
+---
+
+server:
+  port: 8888
+spring:
+  profiles: docker
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/config
