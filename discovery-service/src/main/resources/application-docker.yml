@@ -3,8 +3,6 @@ spring:
     active: docker
 
 eureka:
-  instance:
-    hostname: localhost
   client:
     registerWithEureka: false
     fetchRegistry: false
