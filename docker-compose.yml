@@ -1,24 +1,24 @@
-version: '3.3'
+version: '2'
 services:
-  discovery-service:
-    image: discovery-service
-    build: ./discovery-service
-    ports:
-      - '8761:8761'
-    environment:
-      - "SPRING_PROFILES_ACTIVE=docker"
-    restart: on-failure
-
   config-service:
     image: config-service
     build: ./config-service
     ports:
       - '8888:8888'
-    depends_on:
-      - discovery-service
-    environment:
-      - "SPRING_PROFILES_ACTIVE=docker"
     restart: on-failure
+
+  discovery-service:
+    image: discovery-service
+    build: ./discovery-service
+    ports:
+      - '8761:8761'
+    restart: on-failure
+    environment:
+      - JAVA_OPTS=
+        -Dspring.profiles.active=docker
+    depends_on:
+      config-service:
+        condition: service_started
 
 #  zuul-gateway-service:
 #    image: zuul-gateway-service
