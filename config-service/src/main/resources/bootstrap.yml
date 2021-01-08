@@ -1,17 +1,13 @@
 server:
   port: 8888
 spring:
+  application:
+    name: config-service
   profiles:
     active: native
-
----
-
-server:
-  port: 8888
-spring:
-  profiles: docker
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:/config
+        git:
+          uri: https://github.com/ramazansakin/GeTaxiApp2/tree/master/config-service
+          search-paths: /config
