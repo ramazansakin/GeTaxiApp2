@@ -3,9 +3,16 @@ spring:
     active: native
   application:
     name: discovery-service
-  cloud:
-    config:
-      uri: http://localhost:8888
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
 
 ---
 
