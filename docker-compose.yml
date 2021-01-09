@@ -16,15 +16,15 @@ services:
     links:
       - discovery-service
 
-#  zuul-gateway-service:
-#    image: zuul-gateway-service
-#    build: ./zuul-gateway-service
-#    ports:
-#      - '9000:9000'
-#    links:
-#      - config-service
-#      - discovery-service
-#    restart: on-failure
+  zuul-gateway-service:
+    image: zuul-gateway-service
+    build: ./zuul-gateway-service
+    ports:
+      - '9000:9000'
+    links:
+      - config-service
+      - discovery-service
+    restart: on-failure
 
 #  hystrix-dashboard-service:
 #    image: hystrix-dashboard-service
