@@ -3,6 +3,18 @@ spring:
     active: native
   application:
     name: zuul-gateway-service
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+
+sample:
+  common: Sample common variable
+
+---
+
+spring:
+  profiles: native
   cloud:
     config:
       uri: http://localhost:8888
@@ -13,17 +25,13 @@ spring:
         maxAttempts: 10
       fail-fast: true
 
-  mvc:
-    throw-exception-if-no-handler-found: true
-  resources:
-    add-mappings: false
+sample:
+  variable: Sample var on Native profile
 
 ---
 
 spring:
   profiles: docker
-  application:
-    name: zuul-gateway-service
   cloud:
     config:
       uri: http://config-service:8888
@@ -33,7 +41,6 @@ spring:
         maxInterval: 5000
         maxAttempts: 10
       fail-fast: true
-  mvc:
-    throw-exception-if-no-handler-found: true
-  resources:
-    add-mappings: false
+
+sample:
+  variable: Sample var on Docker profile
