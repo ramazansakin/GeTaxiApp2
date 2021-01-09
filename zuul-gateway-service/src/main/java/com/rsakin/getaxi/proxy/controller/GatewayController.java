@@ -8,14 +8,13 @@ import com.rsakin.getaxi.proxy.service.JwtUserDetailsService;
 import com.rsakin.getaxi.proxy.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -33,6 +32,18 @@ public class GatewayController {
 
     @Autowired
     private JwtUserDetailsService userDetailsService;
+
+    @Value("${sample.variable:Message could not be retrieved}")
+    private String sampleVar;
+
+    @Value("${sample.common:Message could not be retrieved}")
+    private String commonVar;
+
+    @GetMapping("/hello")
+    public ResponseEntity<String> hi() {
+        return new ResponseEntity<>("Profile Variable : " + sampleVar + " ---- "
+                + " common var : " + commonVar, HttpStatus.OK);
+    }
 
     @PostMapping(value = "/authenticate")
     public ResponseEntity<JwtResponse> createAuthenticationToken(@RequestBody @Valid JwtRequest authenticationRequest) {
