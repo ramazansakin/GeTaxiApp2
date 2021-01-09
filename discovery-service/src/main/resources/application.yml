@@ -1,11 +1,9 @@
-server:
-  port: 8761
-
 eureka:
   instance:
     hostname: localhost
   client:
     registerWithEureka: false
     fetchRegistry: false
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+
+sample:
+  profile-msg: Hello Native profile

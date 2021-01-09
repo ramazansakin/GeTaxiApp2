@@ -1,18 +1,6 @@
 spring:
-  profiles:
-    active: native
   application:
     name: discovery-service
-  cloud:
-    config:
-      uri: http://localhost:8888
 
----
-
-spring:
-  profiles: docker
-  application:
-    name: discovery-service
-  cloud:
-    config:
-      uri: http://config-service:8888
+server:
+  port: 8761
