@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: docker
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka/
+
+sample:
+  profile-msg: Hello Docker profile

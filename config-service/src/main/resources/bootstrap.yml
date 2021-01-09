@@ -1,5 +1,10 @@
 server:
   port: 8888
 spring:
-  profiles:
-    active: native
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ramazansakin/GeTaxiApp-Config-Repo

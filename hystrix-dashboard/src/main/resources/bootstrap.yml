@@ -1,7 +1,20 @@
 spring:
+  profiles:
+    active: native
   application:
     name: hystrix-dashboard-service
   cloud:
     config:
       enabled: true
       uri: http://localhost:8888
+
+---
+
+spring:
+  profiles: docker
+  application:
+    name: hystrix-dashboard-service
+  cloud:
+    config:
+      enabled: true
+      uri: http://config-service:8888
