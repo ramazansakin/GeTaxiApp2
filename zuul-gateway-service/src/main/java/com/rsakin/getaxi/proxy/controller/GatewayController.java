@@ -33,10 +33,10 @@ public class GatewayController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
-    @Value("${sample.variable:Message could not be retrieved}")
+    @Value("${sample.variable:Sample variable could not be retrieved}")
     private String sampleVar;
 
-    @Value("${sample.common:Message could not be retrieved}")
+    @Value("${sample.common:Common variale could not be retrieved}")
     private String commonVar;
 
     @GetMapping("/hello")
