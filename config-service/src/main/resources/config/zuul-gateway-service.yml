@@ -14,21 +14,15 @@ zuul:
   routes:
     users:
       path: /users/**
-      serviceId: user-service
+      url: http://localhost:9001
 
 management:
   endpoints:
     web:
       exposure:
-        include: hystrix.stream
+        include: '*'
   security:
     enabled: false
-
-endpoints.enabled: false
-
-endpoints:
-  info.enabled: true
-  health.enabled: true
 
 jwt:
   secret: jwt-sample-secret
