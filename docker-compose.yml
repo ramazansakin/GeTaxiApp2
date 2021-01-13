@@ -28,6 +28,20 @@ services:
       KAFKA_CREATE_TOPICS: "t_locations:1:1"
       KAFKA_TOPIC: "t_locations"
 
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    environment:
+      - STORAGE_TYPE=mem
+      # Uncomment to disable scribe
+      # - SCRIBE_ENABLED=false
+      # Uncomment to enable self-tracing
+      # - SELF_TRACING_ENABLED=true
+      # Uncomment to enable debug logging
+      # - JAVA_OPTS=-Dlogging.level.zipkin=DEBUG
+    ports:
+      - '9411:9411'
+
 #  discovery-service:
 #    image: discovery-service
 #    build: ./discovery-service
@@ -36,6 +50,8 @@ services:
 #    restart: on-failure
 #    depends_on:
 #      - kafka
+#      - zipkin
+
 #
 #  config-service:
 #    image: config-service
