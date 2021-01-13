@@ -1,10 +1,7 @@
 package com.rsakin.userservice.entity;
 
 import com.rsakin.userservice.util.annotation.ValidPassword;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -32,6 +29,10 @@ public class User implements Serializable {
     @NotNull(message = "Email can not be null")
     @Email(message = "Email is not valid")
     private String email;
+
+    @NotNull(message = "role can not be null")
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     @NotNull(message = "Password can not be null")
     @ValidPassword

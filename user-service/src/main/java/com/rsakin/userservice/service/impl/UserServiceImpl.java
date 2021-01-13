@@ -3,6 +3,7 @@ package com.rsakin.userservice.service.impl;
 import com.rsakin.userservice.dto.UserDTO;
 import com.rsakin.userservice.entity.Address;
 import com.rsakin.userservice.entity.User;
+import com.rsakin.userservice.entity.UserRole;
 import com.rsakin.userservice.exception.InvalidRequestException;
 import com.rsakin.userservice.exception.NotFoundException;
 import com.rsakin.userservice.exception.UserNotFoundException;
@@ -133,4 +134,10 @@ public class UserServiceImpl implements UserService {
             throw new NotFoundException("User not found with username : " + username);
         return byUsername;
     }
+
+    @Override
+    public List<User> getAllDrivers() {
+        return userRepository.getAllByRole(UserRole.DRIVER);
+    }
+
 }
