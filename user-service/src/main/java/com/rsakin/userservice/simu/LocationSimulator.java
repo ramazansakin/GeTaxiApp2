@@ -6,7 +6,7 @@ import com.rsakin.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,7 +16,7 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
-@Component
+@Service
 @RequiredArgsConstructor
 public class LocationSimulator {
 
@@ -30,7 +30,7 @@ public class LocationSimulator {
     private static final double MAX_LONG = 45;
 
     // run every 15 secs
-    @Scheduled(fixedDelay = 1000, fixedRate = 15 * 1000)
+    @Scheduled(fixedRate = 15 * 1000)
     public void simulateDriverLocations() {
         logCronTime();
         // get all available drivers
@@ -64,7 +64,7 @@ public class LocationSimulator {
     }
 
     // TODO : test the locations can be modified ?
-    public Map<Integer, Location> getAllDriverLocations(){
+    public Map<Integer, Location> getAllDriverLocations() {
         return new ConcurrentHashMap<>(driversLocationCache);
     }
 

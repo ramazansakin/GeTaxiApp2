@@ -7,13 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.naming.ServiceUnavailableException;
 import java.util.Map;
 
 @Slf4j
-@Component
+@Service
 @RequiredArgsConstructor
 public class LocationTrackerService {
 
@@ -24,7 +24,7 @@ public class LocationTrackerService {
     private static final String TOPIC_LOCATIONS = "t_locations";
 
     // run every 15 secs
-    @Scheduled(fixedDelay = 1000, fixedRate = 15 * 1000)
+    @Scheduled(fixedRate = 15 * 1000)
     public void updateAllDriverLocations() {
         try {
             ResponseEntity<Map<Integer, Location>> allDriverLocations = userServiceFeignClient.getAllDriverLocations();
