@@ -36,7 +36,7 @@ public class LocationSimulator {
         // get all available drivers
         List<User> allDrivers = userService.getAllDrivers();
         simulateLocations(allDrivers);
-
+        log.info("Updated locations ---> " + driversLocationCache.toString());
     }
 
     // TODO : location simulations can be consistent
