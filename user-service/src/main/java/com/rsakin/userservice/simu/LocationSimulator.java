@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LocationSimulator {
 
     private final UserService userService;
-    private Map<Integer, Location> locationCache = new ConcurrentHashMap<>();
+    private Map<Integer, Location> driversLocationCache = new ConcurrentHashMap<>();
 
     // Turkey latitude-longitude coordinates
     private static final double MIN_LAT = 36;
@@ -47,7 +47,7 @@ public class LocationSimulator {
                     .latitude(getRandomLocation(MIN_LAT, MAX_LAT))
                     .longitude(getRandomLocation(MIN_LONG, MAX_LONG))
                     .build();
-            locationCache.put(driver.getId(), location);
+            driversLocationCache.put(driver.getId(), location);
         });
     }
 
@@ -61,6 +61,11 @@ public class LocationSimulator {
         Date now = new Date();
         String strDate = sdf.format(now);
         log.info("Cron job triggered at :: " + strDate);
+    }
+
+    // TODO : test the locations can be modified ?
+    public Map<Integer, Location> getAllDriverLocations(){
+        return new ConcurrentHashMap<>(driversLocationCache);
     }
 
 }
