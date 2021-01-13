@@ -7,13 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.naming.ServiceUnavailableException;
 import java.util.Map;
 
 @Slf4j
-@Service
+@Component
 @RequiredArgsConstructor
 public class LocationTrackerService {
 
@@ -28,8 +28,8 @@ public class LocationTrackerService {
     public void updateAllDriverLocations() {
         try {
             ResponseEntity<Map<Integer, Location>> allDriverLocations = userServiceFeignClient.getAllDriverLocations();
+            log.info("All updated driver locations sent to kafka : {}", allDriverLocations);
             kafkaLocationProducer.send(TOPIC_LOCATIONS, allDriverLocations.getBody());
-            log.info("All updated driver locations sent to kafka : t_locations topic");
         } catch (ServiceUnavailableException e) {
             log.error("Service throw exception while getting locations", e);
         }
