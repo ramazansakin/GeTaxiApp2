@@ -28,33 +28,33 @@ services:
       KAFKA_CREATE_TOPICS: "t_locations:1:1"
       KAFKA_TOPIC: "t_locations"
 
-  discovery-service:
-    image: discovery-service
-    build: ./discovery-service
-    ports:
-      - '8761:8761'
-    restart: on-failure
-    depends_on:
-      - kafka
-
-  config-service:
-    image: config-service
-    build: ./config-service
-    ports:
-      - '8888:8888'
-    restart: on-failure
-    links:
-      - discovery-service
-
-  zuul-gateway-service:
-    image: zuul-gateway-service
-    build: ./zuul-gateway-service
-    ports:
-      - '9000:9000'
-    links:
-      - config-service
-      - discovery-service
-    restart: on-failure
+#  discovery-service:
+#    image: discovery-service
+#    build: ./discovery-service
+#    ports:
+#      - '8761:8761'
+#    restart: on-failure
+#    depends_on:
+#      - kafka
+#
+#  config-service:
+#    image: config-service
+#    build: ./config-service
+#    ports:
+#      - '8888:8888'
+#    restart: on-failure
+#    links:
+#      - discovery-service
+#
+#  zuul-gateway-service:
+#    image: zuul-gateway-service
+#    build: ./zuul-gateway-service
+#    ports:
+#      - '9000:9000'
+#    links:
+#      - config-service
+#      - discovery-service
+#    restart: on-failure
 
 #  hystrix-dashboard-service:
 #    image: hystrix-dashboard-service

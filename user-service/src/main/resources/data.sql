@@ -18,6 +18,7 @@ CREATE TABLE users(
     username VARCHAR(20) NOT NULL,
     email VARCHAR(20) UNIQUE,
     password varchar(100) NOT NULL,
+    role varchar(15) NOT NULL,
     address_id INT,
     FOREIGN KEY (address_id) REFERENCES address(id)
 );
@@ -31,13 +32,13 @@ INSERT INTO address ( city, street, building_no, door_no) VALUES    ( 'Malatya',
                                                                     ( 'Urfa', 'Gelgel Sokagı', 4, 56 );
 
 
-INSERT INTO users (name, lastname, username, password, address_id, email) VALUES    ( 'Admin', 'Test', 'adminuser', 'samplE_12345', 1  , 'admin@mail.com' ),
-                                                                                    ( 'Selim', 'Canlı', 'basic', 'samplE_12345', 2  , 'selim@mail.com' ),
-                                                                                    ( 'Mehmet', 'Kaya', 'basic', 'samplE_12345', 5  , 'mehmet@mail.com' ),
-                                                                                    ( 'Erdem', 'Canlı', 'basic', 'samplE_12345', 3  , 'erdemm@mail.com' ),
-                                                                                    ( 'Cengiz', 'Arf', 'basic', 'samplE_12345', 5  , 'cengiz@mail.com' ),
-                                                                                    ( 'Ferhat', 'Tapas', 'basic', 'samplE_12345', 2  , 'ferhh@mail.com' ),
-                                                                                    ( 'Selim', 'Asaf', 'basic', 'samplE_12345', 5  , 'selim2@mail.com' ),
-                                                                                    ( 'Hekim', 'Gandas', 'basic', 'samplE_12345', 2  , 'hkm@mail.com' ),
-                                                                                    ( 'Tekin', 'Karlı', 'basic', 'samplE_12345', 3  , 'tekin@mail.com' ),
-                                                                                    ( 'Kamil', 'Peksimet', 'basic', 'samplE_12345', 4 , 'ridvan@mail.com' );
+INSERT INTO users (name, lastname, username, password, role, address_id, email) VALUES      ( 'Admin', 'Test', 'adminuser', 'samplE_12345', 'PASSENGER', 1  , 'admin@mail.com' ),
+                                                                                            ( 'Selim', 'Canlı', 'basic', 'samplE_12345', 'DRIVER', 2  , 'selim@mail.com' ),
+                                                                                            ( 'Mehmet', 'Kaya', 'basic', 'samplE_12345', 'DRIVER', 5  , 'mehmet@mail.com' ),
+                                                                                            ( 'Erdem', 'Canlı', 'basic', 'samplE_12345', 'DRIVER', 3  , 'erdemm@mail.com' ),
+                                                                                            ( 'Cengiz', 'Arf', 'basic', 'samplE_12345', 'DRIVER', 5  , 'cengiz@mail.com' ),
+                                                                                            ( 'Ferhat', 'Tapas', 'basic', 'samplE_12345', 'PASSENGER', 2  , 'ferhh@mail.com' ),
+                                                                                            ( 'Selim', 'Asaf', 'basic', 'samplE_12345', 'DRIVER', 5  , 'selim2@mail.com' ),
+                                                                                            ( 'Hekim', 'Gandas', 'basic', 'samplE_12345', 'PASSENGER', 2  , 'hkm@mail.com' ),
+                                                                                            ( 'Tekin', 'Karlı', 'basic', 'samplE_12345', 'PASSENGER', 3  , 'tekin@mail.com' ),
+                                                                                            ( 'Kamil', 'Peksimet', 'basic', 'samplE_12345', 'DRIVER', 4 , 'ridvan@mail.com' );
