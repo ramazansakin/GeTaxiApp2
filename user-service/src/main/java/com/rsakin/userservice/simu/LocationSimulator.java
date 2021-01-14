@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Slf4j
 @Service
@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LocationSimulator {
 
     private final UserService userService;
-    private Map<Integer, Location> driversLocationCache = new ConcurrentHashMap<>();
+    private List<Location> driversLocationCache = new CopyOnWriteArrayList<>();
 
     // Turkey latitude-longitude coordinates
     private static final double MIN_LAT = 36;
@@ -47,7 +47,7 @@ public class LocationSimulator {
                     .latitude(getRandomLocation(MIN_LAT, MAX_LAT))
                     .longitude(getRandomLocation(MIN_LONG, MAX_LONG))
                     .build();
-            driversLocationCache.put(driver.getId(), location);
+            driversLocationCache.add(location);
         });
     }
 
@@ -64,8 +64,8 @@ public class LocationSimulator {
     }
 
     // TODO : test the locations can be modified ?
-    public Map<Integer, Location> getAllDriverLocations() {
-        return new ConcurrentHashMap<>(driversLocationCache);
+    public List<Location> getAllDriverLocations() {
+        return new CopyOnWriteArrayList<>(driversLocationCache);
     }
 
 }
