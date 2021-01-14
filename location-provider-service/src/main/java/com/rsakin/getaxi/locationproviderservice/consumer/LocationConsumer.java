@@ -14,6 +14,7 @@ public class LocationConsumer {
     @KafkaListener(topics = "t_locations", containerFactory = "locationKafkaListenerFactory", groupId = "group_json")
     public void consumeJson(Map<Integer, LocationDTO> locationMap) {
         log.info("Consumed Location Map : {}", locationMap);
+        // TODO : persist updated drivers' locations
     }
 
 }

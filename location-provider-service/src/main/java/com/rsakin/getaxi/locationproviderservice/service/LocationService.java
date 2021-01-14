@@ -23,9 +23,23 @@ public class LocationService {
         return locationList;
     }
 
-    public Location getByUserId(int userId) {
-        Optional<Location> byUserId = locationRepository.findByUserId(userId);
-        return byUserId.orElseThrow(() -> new LocationNotFoundException(userId));
+    public Location getById(Long id) {
+        Optional<Location> byId = locationRepository.findById(id);
+        return byId.orElseThrow(() -> new LocationNotFoundException("for location id : " + id));
     }
 
+    public Location getByUserId(int userId) {
+        Optional<Location> byUserId = locationRepository.findByUserId(userId);
+        return byUserId.orElseThrow(() -> new LocationNotFoundException("for user id : " + userId));
+    }
+
+    public Location save(Location location) {
+        return locationRepository.save(location);
+    }
+
+    public Boolean delete(Location location) {
+        Location byId = getById(location.getId());
+        locationRepository.delete(byId);
+        return true;
+    }
 }

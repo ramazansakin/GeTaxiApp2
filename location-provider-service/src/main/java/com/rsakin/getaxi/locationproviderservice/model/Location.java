@@ -11,8 +11,7 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 public class Location {
 
     @Id
-    private long id;
-
+    private Long id;
     int userId;
     long latitude;
     long longitude;
