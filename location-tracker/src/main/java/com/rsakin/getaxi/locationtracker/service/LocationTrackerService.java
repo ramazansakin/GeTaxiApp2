@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.naming.ServiceUnavailableException;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -27,7 +28,7 @@ public class LocationTrackerService {
     @Scheduled(fixedRate = 15 * 1000)
     public void updateAllDriverLocations() {
         try {
-            ResponseEntity<Map<Integer, Location>> allDriverLocations = userServiceFeignClient.getAllDriverLocations();
+            ResponseEntity<List<Location>> allDriverLocations = userServiceFeignClient.getAllDriverLocations();
             log.info("All updated driver locations sent to kafka : {}", allDriverLocations);
             kafkaLocationProducer.send(TOPIC_LOCATIONS, allDriverLocations.getBody());
         } catch (ServiceUnavailableException e) {
