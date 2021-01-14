@@ -28,6 +28,26 @@ services:
       KAFKA_CREATE_TOPICS: "t_locations:1:1"
       KAFKA_TOPIC: "t_locations"
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.6
+    container_name: elasticsearch
+    restart: unless-stopped
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      cluster.name: elasticsearch
+      discovery.type: single-node
+      bootstrap.memory_lock: "true"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test: "curl -f http://localhost:9200 || exit 1"
+      start_period: 1m
+
   zipkin:
     image: openzipkin/zipkin
     container_name: zipkin
