@@ -1,6 +1,6 @@
 package com.rsakin.getaxi.locationproviderservice.config;
 
-import com.rsakin.getaxi.locationproviderservice.model.Location;
+import com.rsakin.getaxi.locationproviderservice.model.LocationDTO;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,7 +46,7 @@ public class KafkaConsumerConfig {
     // -----------------------------------------------------------------------------------------------------------------
     // Location consuming
     @Bean
-    public ConsumerFactory<String, Map<Integer, Location>> locationConsumerFactory() {
+    public ConsumerFactory<String, Map<Integer, LocationDTO>> locationConsumerFactory() {
         Map<String, Object> config = new HashMap<>();
 
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -54,7 +54,7 @@ public class KafkaConsumerConfig {
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
-        JsonDeserializer<Map<Integer, Location>> todoJsonDeserializer = new JsonDeserializer<>(Map.class, false);
+        JsonDeserializer<Map<Integer, LocationDTO>> todoJsonDeserializer = new JsonDeserializer<>(Map.class, false);
         todoJsonDeserializer.addTrustedPackages("*");
 
         return new DefaultKafkaConsumerFactory<>(
@@ -65,8 +65,8 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, Map<Integer, Location>> locationKafkaListenerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, Map<Integer, Location>> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    public ConcurrentKafkaListenerContainerFactory<String, Map<Integer, LocationDTO>> locationKafkaListenerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Map<Integer, LocationDTO>> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(locationConsumerFactory());
         return factory;
     }
