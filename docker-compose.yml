@@ -44,9 +44,6 @@ services:
       memlock:
         soft: -1
         hard: -1
-    healthcheck:
-      test: "curl -f http://localhost:9200 || exit 1"
-      start_period: 1m
 
   zipkin:
     image: openzipkin/zipkin
@@ -71,7 +68,7 @@ services:
 #    depends_on:
 #      - kafka
 #      - zipkin
-
+#      - elasticsearch
 #
 #  config-service:
 #    image: config-service
