@@ -9,11 +9,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @Slf4j
 @Service
@@ -21,7 +18,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class LocationSimulator {
 
     private final UserService userService;
-    private List<Location> driversLocationCache = new CopyOnWriteArrayList<>();
+    private Map<Integer, Location> driversLocationCache = new ConcurrentHashMap<>();
 
     // Turkey latitude-longitude coordinates
     private static final double MIN_LAT = 36;
@@ -36,7 +33,8 @@ public class LocationSimulator {
         // get all available drivers
         List<User> allDrivers = userService.getAllDrivers();
         simulateLocations(allDrivers);
-        log.info("Updated locations ---> " + driversLocationCache.toString());
+        log.info("Updated locations ---> " + driversLocationCache.toString()
+                + " --- Size : " + driversLocationCache.size());
     }
 
     // TODO : location simulations can be consistent
@@ -47,7 +45,7 @@ public class LocationSimulator {
                     .latitude(getRandomLocation(MIN_LAT, MAX_LAT))
                     .longitude(getRandomLocation(MIN_LONG, MAX_LONG))
                     .build();
-            driversLocationCache.add(location);
+            driversLocationCache.put(driver.getId(), location);
         });
     }
 
@@ -65,7 +63,7 @@ public class LocationSimulator {
 
     // TODO : test the locations can be modified ?
     public List<Location> getAllDriverLocations() {
-        return new CopyOnWriteArrayList<>(driversLocationCache);
+        return new ArrayList<>(driversLocationCache.values());
     }
 
 }

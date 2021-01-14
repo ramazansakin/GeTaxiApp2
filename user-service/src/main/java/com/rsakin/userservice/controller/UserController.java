@@ -97,7 +97,7 @@ public class UserController {
 
     @GetMapping("/driver-locations")
     public ResponseEntity<List<Location>> getAllDriverLocations() {
-        List<Location> allLocations = locationSimulator.getAllDriverLocations();
-        return new ResponseEntity<>(allLocations, HttpStatus.OK);
+        List<Location> allDriverLocations = locationSimulator.getAllDriverLocations();
+        return new ResponseEntity<>(allDriverLocations, HttpStatus.OK);
     }
 }
