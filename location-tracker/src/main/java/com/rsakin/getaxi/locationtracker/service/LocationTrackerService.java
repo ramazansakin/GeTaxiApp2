@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import javax.naming.ServiceUnavailableException;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Component
@@ -29,7 +28,8 @@ public class LocationTrackerService {
     public void updateAllDriverLocations() {
         try {
             ResponseEntity<List<Location>> allDriverLocations = userServiceFeignClient.getAllDriverLocations();
-            log.info("All updated driver locations sent to kafka : {}", allDriverLocations);
+            log.info("All updated driver locations sent to kafka : {}", allDriverLocations.getBody()
+                    + " --- Size : " + allDriverLocations.getBody().size());
             kafkaLocationProducer.send(TOPIC_LOCATIONS, allDriverLocations.getBody());
         } catch (ServiceUnavailableException e) {
             log.error("Service throw exception while getting locations", e);
