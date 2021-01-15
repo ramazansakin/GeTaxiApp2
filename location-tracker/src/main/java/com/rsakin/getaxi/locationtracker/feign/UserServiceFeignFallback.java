@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import javax.naming.ServiceUnavailableException;
-import java.util.Map;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -15,7 +15,7 @@ public class UserServiceFeignFallback implements UserServiceFeignClient {
     private static final String INFO_MSG = "User Service is temporarily unavailable: ";
 
     @Override
-    public ResponseEntity<Map<Integer, Location>> getAllDriverLocations() throws ServiceUnavailableException {
+    public ResponseEntity<List<Location>> getAllDriverLocations() throws ServiceUnavailableException {
         throw new ServiceUnavailableException(INFO_MSG);
     }
 }
