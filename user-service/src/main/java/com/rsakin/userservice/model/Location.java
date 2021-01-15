@@ -7,6 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @ToString
+@EqualsAndHashCode
 public class Location {
 
     private int userId;

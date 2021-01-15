@@ -9,10 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -36,7 +33,8 @@ public class LocationSimulator {
         // get all available drivers
         List<User> allDrivers = userService.getAllDrivers();
         simulateLocations(allDrivers);
-        log.info("Updated locations ---> " + driversLocationCache.toString());
+        log.info("Updated locations ---> " + driversLocationCache.toString()
+                + " --- Size : " + driversLocationCache.size());
     }
 
     // TODO : location simulations can be consistent
@@ -64,8 +62,8 @@ public class LocationSimulator {
     }
 
     // TODO : test the locations can be modified ?
-    public Map<Integer, Location> getAllDriverLocations() {
-        return new ConcurrentHashMap<>(driversLocationCache);
+    public List<Location> getAllDriverLocations() {
+        return new ArrayList<>(driversLocationCache.values());
     }
 
 }
