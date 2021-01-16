@@ -23,7 +23,7 @@ public class LocationService {
         return locationList;
     }
 
-    public Location getById(Long id) {
+    public Location getById(String id) {
         Optional<Location> byId = locationRepository.findById(id);
         return byId.orElseThrow(() -> new LocationNotFoundException("for location id : " + id));
     }
