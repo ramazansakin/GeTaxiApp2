@@ -1,5 +1,6 @@
 package com.rsakin.getaxi.locationproviderservice.consumer;
 
+import com.rsakin.getaxi.locationproviderservice.exception.LocationNotFoundException;
 import com.rsakin.getaxi.locationproviderservice.model.Location;
 import com.rsakin.getaxi.locationproviderservice.service.LocationService;
 import lombok.RequiredArgsConstructor;
@@ -23,19 +24,24 @@ public class LocationConsumer {
 
         locationMap.forEach(stringObjectMap -> {
             Integer userId = (Integer) stringObjectMap.get("userId");
+            Integer latitude = (Integer) stringObjectMap.get("latitude");
+            Integer longitude = (Integer) stringObjectMap.get("longitude");
+            try {
 
-            Location byUserId = locationService.getByUserId(userId);
-            if (byUserId != null) {
+                Location byUserId = locationService.getByUserId(userId);
+                // if location is already there, update it
+                byUserId.setLatitude(latitude);
+                byUserId.setLongitude(longitude);
                 locationService.save(byUserId);
-            } else {
-                Integer latitude = (Integer) stringObjectMap.get("latitude");
-                Integer longitude = (Integer) stringObjectMap.get("longitude");
+            } catch (LocationNotFoundException ex) {
+                // when location not found, save it
                 Location newLocation = new Location();
                 newLocation.setUserId(userId);
                 newLocation.setLatitude(latitude);
                 newLocation.setLongitude(longitude);
                 locationService.save(newLocation);
             }
+
         });
 
         log.info("Total number of locations before update : {}", locationMap.size());
