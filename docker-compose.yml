@@ -36,7 +36,7 @@ services:
       - "9200:9200"
       - "9300:9300"
     environment:
-      cluster.name: docker-es-cluster
+      cluster.name: es-cluster
       discovery.type: single-node
       bootstrap.memory_lock: "true"
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
