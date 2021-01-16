@@ -6,6 +6,11 @@ services:
     restart: always
     ports:
       - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    healthcheck:
+      test: "echo stat | nc localhost $$ZOOKEEPER_CLIENT_PORT"
+      start_period: 30s
 
   kafka:
     image: wurstmeister/kafka
@@ -27,25 +32,28 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
       KAFKA_CREATE_TOPICS: "t_locations:1:1"
       KAFKA_TOPIC: "t_locations"
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.3
-    container_name: elasticsearch
-    restart: unless-stopped
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    environment:
-      cluster.name: es-cluster
-      discovery.type: single-node
-      bootstrap.memory_lock: "true"
-      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
     healthcheck:
-      test: "curl -f http://localhost:9200 || exit 1"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
+      test: [ "CMD", "nc", "-z", "localhost", "9092" ]
+      start_period: 30s
+#
+#  elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.3
+#    container_name: elasticsearch
+#    restart: unless-stopped
+#    ports:
+#      - "9200:9200"
+#      - "9300:9300"
+#    environment:
+#      cluster.name: es-cluster
+#      discovery.type: single-node
+#      bootstrap.memory_lock: "true"
+#      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+#    healthcheck:
+#      test: "curl -f http://localhost:9200 || exit 1"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
 
   zipkin:
     image: openzipkin/zipkin
@@ -60,27 +68,32 @@ services:
       # - JAVA_OPTS=-Dlogging.level.zipkin=DEBUG
     ports:
       - '9411:9411'
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "9411" ]
+      start_period: 30s
 
-#  discovery-service:
-#    image: discovery-service
-#    build: ./discovery-service
-#    ports:
-#      - '8761:8761'
-#    restart: on-failure
-#    depends_on:
+  discovery-service:
+    image: discovery-service
+    build: ./discovery-service
+    ports:
+      - '8761:8761'
+    restart: on-failure
+    depends_on:
 #      - kafka
-#      - zipkin
+      - zipkin
 #      - elasticsearch
-#
-#  config-service:
-#    image: config-service
-#    build: ./config-service
-#    ports:
-#      - '8888:8888'
-#    restart: on-failure
-#    links:
-#      - discovery-service
-#
+
+  config-service:
+    image: config-service
+    build: ./config-service
+    ports:
+      - '8888:8888'
+    restart: on-failure
+    depends_on:
+      - discovery-service
+    links:
+      - discovery-service
+
 #  zuul-gateway-service:
 #    image: zuul-gateway-service
 #    build: ./zuul-gateway-service
