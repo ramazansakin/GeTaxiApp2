@@ -38,7 +38,7 @@ public class GatewayController {
     @Value("${sample.variable:Sample variable could not be retrieved}")
     private String sampleVar;
 
-    @Value("${sample.common:Common variale could not be retrieved}")
+    @Value("${sample.common:Common variable could not be retrieved}")
     private String commonVar;
 
     @GetMapping("/hello")
