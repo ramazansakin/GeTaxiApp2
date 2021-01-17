@@ -1,6 +1,5 @@
 spring:
-  profiles:
-    active: docker
+  profiles: docker
 
 eureka:
   client:

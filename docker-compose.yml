@@ -1,63 +1,63 @@
 version: '3'
 services:
-  zookeeper:
-    image: wurstmeister/zookeeper
-    container_name: zookeeper
-    restart: always
-    ports:
-      - "2181:2181"
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-    healthcheck:
-      test: "echo stat | nc localhost $$ZOOKEEPER_CLIENT_PORT"
-      start_period: 30s
-
-  kafka:
-    image: wurstmeister/kafka
-    container_name: kafka
-    restart: always
-    ports:
-      - "9092:9092"
-      - "29092:29092"
-    depends_on:
-      - zookeeper
-    links:
-      - zookeeper
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-      ALLOW_PLAINTEXT_LISTENER: "yes"
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_LISTENERS: PLAINTEXT://:9092,PLAINTEXT_HOST://:29092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
-      KAFKA_CREATE_TOPICS: "t_locations:1:1"
-      KAFKA_TOPIC: "t_locations"
-    healthcheck:
-      test: [ "CMD", "nc", "-z", "localhost", "9092" ]
-      start_period: 30s
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.3
-    container_name: elasticsearch
-    restart: always
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    environment:
-      cluster.name: es-cluster
-      discovery.type: single-node
-      bootstrap.memory_lock: "true"
-      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
-    healthcheck:
-      test: "curl -f http://localhost:9200 || exit 1"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
+#  zookeeper:
+#    image: wurstmeister/zookeeper
+#    container_name: zookeeper
+#    restart: always
+#    ports:
+#      - "2181:2181"
+#    environment:
+#      ZOOKEEPER_CLIENT_PORT: 2181
+#    healthcheck:
+#      test: "echo stat | nc localhost $$ZOOKEEPER_CLIENT_PORT"
+#      start_period: 30s
+#
+#  kafka:
+#    image: wurstmeister/kafka
+#    container_name: kafka
+#    restart: always
+#    ports:
+#      - "9092:9092"
+#      - "29092:29092"
+#    depends_on:
+#      - zookeeper
+#    links:
+#      - zookeeper
+#    environment:
+#      KAFKA_BROKER_ID: 1
+#      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+#      ALLOW_PLAINTEXT_LISTENER: "yes"
+#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+#      KAFKA_LISTENERS: PLAINTEXT://:9092,PLAINTEXT_HOST://:29092
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+#      KAFKA_CREATE_TOPICS: "t_locations:1:1"
+#      KAFKA_TOPIC: "t_locations"
+#    healthcheck:
+#      test: [ "CMD", "nc", "-z", "localhost", "9092" ]
+#      start_period: 30s
+#
+#  elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.3
+#    container_name: elasticsearch
+#    restart: always
+#    ports:
+#      - "9200:9200"
+#      - "9300:9300"
+#    environment:
+#      cluster.name: es-cluster
+#      discovery.type: single-node
+#      bootstrap.memory_lock: "true"
+#      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+#    healthcheck:
+#      test: "curl -f http://localhost:9200 || exit 1"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
 
   zipkin:
-    image: openzipkin/zipkin
     container_name: zipkin
+    image: openzipkin/zipkin
     restart: always
     environment:
       - STORAGE_TYPE=mem
@@ -82,10 +82,10 @@ services:
     depends_on:
       zipkin:
         condition: service_healthy
-      kafka:
-        condition: service_healthy
-      elasticsearch:
-        condition: service_healthy
+#      kafka:
+#        condition: service_healthy
+#      elasticsearch:
+#        condition: service_healthy
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "8761" ]
 
@@ -108,6 +108,9 @@ services:
     build: ./zuul-gateway-service
     ports:
       - '9000:9000'
+    environment:
+      - SPR_PROFILE=docker
+      - CONFIG_SERVER_URL=http://config-service:8888/
     restart: on-failure
     depends_on:
       config-service:
