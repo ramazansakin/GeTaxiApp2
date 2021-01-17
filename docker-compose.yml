@@ -56,8 +56,8 @@ services:
 #        hard: -1
 
   zipkin:
-    image: openzipkin/zipkin
     container_name: zipkin
+    image: openzipkin/zipkin
     restart: always
     environment:
       - STORAGE_TYPE=mem
@@ -108,6 +108,9 @@ services:
     build: ./zuul-gateway-service
     ports:
       - '9000:9000'
+    environment:
+      - SPR_PROFILE=docker
+      - CONFIG_SERVER_URL=http://config-service:8888/
     restart: on-failure
     depends_on:
       config-service:

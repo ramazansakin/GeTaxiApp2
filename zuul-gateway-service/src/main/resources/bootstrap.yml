@@ -1,46 +1,17 @@
 spring:
   profiles:
-    active: native
+    active: ${SPR_PROFILE:native}
   application:
     name: zuul-gateway-service
   mvc:
     throw-exception-if-no-handler-found: true
   resources:
     add-mappings: false
-
-sample:
-  common: Sample common variable
-
----
-
-spring:
-  profiles: native
   cloud:
     config:
-      uri: http://localhost:8888
-      retry:
-        initialInterval: 10000
-        multiplier: 1.3
-        maxInterval: 5000
-        maxAttempts: 10
+      uri: ${CONFIG_SERVER_URL:http://localhost:8888/}
       fail-fast: true
 
-sample:
-  variable: Sample var on Native profile
-
----
-
-spring:
-  profiles: docker
-  cloud:
-    config:
-      uri: http://config-service:8888
-      retry:
-        initialInterval: 10000
-        multiplier: 1.3
-        maxInterval: 5000
-        maxAttempts: 10
-      fail-fast: true
 
 sample:
-  variable: Sample var on Docker profile
+  variable: Sample var on ${spring.profiles.active} profile
