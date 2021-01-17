@@ -28,4 +28,7 @@ public class User implements Serializable {
     @ValidPassword
     private String password;
 
+    @NotNull(message = "role can not be null")
+    private String role;
+
 }
