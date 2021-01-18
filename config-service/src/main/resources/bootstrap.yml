@@ -8,3 +8,16 @@ spring:
       server:
         git:
           uri: https://github.com/ramazansakin/GeTaxiApp-Config-Repo
+
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: health,info
