@@ -96,6 +96,8 @@ services:
     ports:
       - '8888:8888'
     restart: on-failure
+    environment:
+      - EUREKA_SERVER_URL=http://discovery-service:8761/eureka/
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "8888" ]
     depends_on:
@@ -114,26 +116,32 @@ services:
     restart: on-failure
     depends_on:
       config-service:
+        condition: service_started
+
+  hystrix-dashboard-service:
+    container_name: hystrix-dashboard-service
+    image: hystrix-dashboard-service
+    build: ./hystrix-dashboard
+    ports:
+      - '9090:9090'
+    restart: on-failure
+    environment:
+      - SPR_PROFILE=docker
+      - CONFIG_SERVER_URL=http://config-service:8888/
+    depends_on:
+      config-service:
         condition: service_healthy
 
-#  hystrix-dashboard-service:
-#    container_name: hystrix-dashboard-service
-#    image: hystrix-dashboard-service
-#    build: ./hystrix-dashboard
-#    ports:
-#      - '9090:9090'
-#    restart: on-failure
-#    depends_on:
-#      config-service:
-#        condition: service_healthy
-#
-#  user-service:
-#    container_name: user-service
-#    image: user-service
-#    build: ./user-service
-#    ports:
-#      - '9001:9001'
-#    depends_on:
-#      config-service:
-#        condition: service_healthy
-#    restart: on-failure
+  user-service:
+    container_name: user-service
+    image: user-service
+    build: ./user-service
+    environment:
+      - SPR_PROFILE=docker
+      - CONFIG_SERVER_URL=http://config-service:8888/
+    ports:
+      - '9001:9001'
+    depends_on:
+      config-service:
+        condition: service_healthy
+    restart: on-failure
