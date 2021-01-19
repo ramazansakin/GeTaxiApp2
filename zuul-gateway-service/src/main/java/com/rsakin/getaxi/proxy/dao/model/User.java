@@ -28,4 +28,6 @@ public class User implements Serializable {
     @ValidPassword
     private String password;
 
+    private String role;
+
 }

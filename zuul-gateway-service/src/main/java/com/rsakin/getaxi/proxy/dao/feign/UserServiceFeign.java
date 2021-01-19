@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(value = "user-service-feign", url = "localhost:9001/api/user", fallback = UserServiceFeignFallback.class)
+@FeignClient( name = "user-service", fallback = UserServiceFeignFallback.class)
 public interface UserServiceFeign {
 
-    @GetMapping(value = "/username/{username}")
+    @GetMapping(value = "/api/user/username/{username}")
     ResponseEntity<User> findByUsername(@PathVariable("username") String username);
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/api/user/create")
     ResponseEntity<UserDTO> save(@RequestBody User user);
 
 }

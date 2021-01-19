@@ -113,6 +113,7 @@ services:
     environment:
       - SPR_PROFILE=docker
       - CONFIG_SERVER_URL=http://config-service:8888/
+      - ZIPKIN_SERVER=zipkin:9411
     restart: on-failure
     depends_on:
       config-service:
@@ -139,6 +140,7 @@ services:
     environment:
       - SPR_PROFILE=docker
       - CONFIG_SERVER_URL=http://config-service:8888/
+      - ZIPKIN_SERVER=zipkin:9411
     ports:
       - '9001:9001'
     depends_on:
