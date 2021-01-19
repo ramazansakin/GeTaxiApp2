@@ -5,4 +5,4 @@ ENV CONFIG_SERVER_URL=""
 ENV SPR_PROFILE=""
 EXPOSE 9001
 
-ENTRYPOINT ["java", "-Dspring.profiles.active=docker", "-jar", "/user-service-1.0-RELEASE.jar"]
+ENTRYPOINT ["java", "-jar", "/user-service-1.0-RELEASE.jar"]

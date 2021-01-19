@@ -6,6 +6,10 @@ spring:
   cloud:
     config:
       uri: ${CONFIG_SERVER_URL:http://localhost:8888/}
+  zipkin:
+    base-url: ${ZIPKIN_SERVER:http://localhost:9411/}
+  sleuth:
+    enabled: true
 
 
 sample:
