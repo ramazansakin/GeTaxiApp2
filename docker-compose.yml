@@ -96,6 +96,8 @@ services:
     ports:
       - '8888:8888'
     restart: on-failure
+    environment:
+      - EUREKA_SERVER_URL=http://discovery-service:8761/eureka/
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "8888" ]
     depends_on:
@@ -114,7 +116,7 @@ services:
     restart: on-failure
     depends_on:
       config-service:
-        condition: service_healthy
+        condition: service_started
 
 #  hystrix-dashboard-service:
 #    container_name: hystrix-dashboard-service
