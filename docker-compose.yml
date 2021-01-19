@@ -1,49 +1,139 @@
 version: '3'
 services:
+#  zookeeper:
+#    image: wurstmeister/zookeeper
+#    container_name: zookeeper
+#    restart: always
+#    ports:
+#      - "2181:2181"
+#    environment:
+#      ZOOKEEPER_CLIENT_PORT: 2181
+#    healthcheck:
+#      test: "echo stat | nc localhost $$ZOOKEEPER_CLIENT_PORT"
+#      start_period: 30s
+#
+#  kafka:
+#    image: wurstmeister/kafka
+#    container_name: kafka
+#    restart: always
+#    ports:
+#      - "9092:9092"
+#      - "29092:29092"
+#    depends_on:
+#      - zookeeper
+#    links:
+#      - zookeeper
+#    environment:
+#      KAFKA_BROKER_ID: 1
+#      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+#      ALLOW_PLAINTEXT_LISTENER: "yes"
+#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+#      KAFKA_LISTENERS: PLAINTEXT://:9092,PLAINTEXT_HOST://:29092
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+#      KAFKA_CREATE_TOPICS: "t_locations:1:1"
+#      KAFKA_TOPIC: "t_locations"
+#    healthcheck:
+#      test: [ "CMD", "nc", "-z", "localhost", "9092" ]
+#      start_period: 30s
+#
+#  elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.3
+#    container_name: elasticsearch
+#    restart: always
+#    ports:
+#      - "9200:9200"
+#      - "9300:9300"
+#    environment:
+#      cluster.name: es-cluster
+#      discovery.type: single-node
+#      bootstrap.memory_lock: "true"
+#      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+#    healthcheck:
+#      test: "curl -f http://localhost:9200 || exit 1"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+
+  zipkin:
+    container_name: zipkin
+    image: openzipkin/zipkin
+    restart: always
+    environment:
+      - STORAGE_TYPE=mem
+      # Uncomment to disable scribe
+      # - SCRIBE_ENABLED=false
+      # Uncomment to enable self-tracing
+      # - SELF_TRACING_ENABLED=true
+      # Uncomment to enable debug logging
+      # - JAVA_OPTS=-Dlogging.level.zipkin=DEBUG
+    ports:
+      - '9411:9411'
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "9411" ]
+
   discovery-service:
+    container_name: discovery-service
     image: discovery-service
     build: ./discovery-service
+    restart: on-failure
     ports:
       - '8761:8761'
-    restart: on-failure
+    depends_on:
+      zipkin:
+        condition: service_healthy
+#      kafka:
+#        condition: service_healthy
+#      elasticsearch:
+#        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "8761" ]
 
   config-service:
+    container_name: config-service
     image: config-service
     build: ./config-service
     ports:
       - '8888:8888'
     restart: on-failure
-    links:
-      - discovery-service
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "8888" ]
+    depends_on:
+      discovery-service:
+        condition: service_healthy
 
   zuul-gateway-service:
+    container_name: zuul-gateway-service
     image: zuul-gateway-service
     build: ./zuul-gateway-service
     ports:
       - '9000:9000'
-    links:
-      - config-service
-      - discovery-service
+    environment:
+      - SPR_PROFILE=docker
+      - CONFIG_SERVER_URL=http://config-service:8888/
     restart: on-failure
+    depends_on:
+      config-service:
+        condition: service_healthy
 
 #  hystrix-dashboard-service:
+#    container_name: hystrix-dashboard-service
 #    image: hystrix-dashboard-service
 #    build: ./hystrix-dashboard
 #    ports:
 #      - '9090:9090'
-#    depends_on:
-#      discovery-service:
-#        condition: service_started
 #    restart: on-failure
+#    depends_on:
+#      config-service:
+#        condition: service_healthy
 #
 #  user-service:
+#    container_name: user-service
 #    image: user-service
 #    build: ./user-service
 #    ports:
 #      - '9001:9001'
 #    depends_on:
-#      discovery-service:
-#        condition: service_started
-#      zuul-gateway-service:
-#        condition: service_started
+#      config-service:
+#        condition: service_healthy
 #    restart: on-failure

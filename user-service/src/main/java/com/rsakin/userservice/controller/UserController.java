@@ -2,7 +2,9 @@ package com.rsakin.userservice.controller;
 
 import com.rsakin.userservice.dto.UserDTO;
 import com.rsakin.userservice.entity.User;
+import com.rsakin.userservice.model.Location;
 import com.rsakin.userservice.service.UserService;
+import com.rsakin.userservice.simu.LocationSimulator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
@@ -29,12 +31,14 @@ public class UserController {
 
     private final MessageSource messageSource;
 
+    private final LocationSimulator locationSimulator;
+
     @GetMapping("/welcome")
-    public void welcome(){
+    public void welcome() {
         log.info("label_de.properties : {}", messageSource.getMessage("welcome.message",
-                new Object[] {""}, Locale.GERMAN));
+                new Object[]{""}, Locale.GERMAN));
         log.info("label.properties : {}", messageSource.getMessage("welcome.message",
-                new Object[] {""}, Locale.ENGLISH));
+                new Object[]{""}, Locale.ENGLISH));
     }
 
     @GetMapping("/all")
@@ -89,5 +93,11 @@ public class UserController {
     public ResponseEntity<User> findByUsername(@PathVariable String username) {
         User user = userService.findByUsername(username);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/driver-locations")
+    public ResponseEntity<List<Location>> getAllDriverLocations() {
+        List<Location> allDriverLocations = locationSimulator.getAllDriverLocations();
+        return new ResponseEntity<>(allDriverLocations, HttpStatus.OK);
     }
 }

@@ -25,4 +25,6 @@ public interface UserService {
     List<UserDTO> getUsersByAddressCityName(String city);
 
     User findByUsername(String username);
+
+    List<User> getAllDrivers();
 }

@@ -9,6 +9,7 @@ import com.rsakin.getaxi.proxy.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
@@ -21,6 +22,7 @@ import javax.validation.Valid;
 @Validated
 @RestController
 @Slf4j
+@RefreshScope
 @CrossOrigin(origins = "*")
 public class GatewayController {
 
@@ -36,7 +38,7 @@ public class GatewayController {
     @Value("${sample.variable:Sample variable could not be retrieved}")
     private String sampleVar;
 
-    @Value("${sample.common:Common variale could not be retrieved}")
+    @Value("${sample.common:Common variable could not be retrieved}")
     private String commonVar;
 
     @GetMapping("/hello")

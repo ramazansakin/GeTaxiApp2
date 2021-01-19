@@ -1,0 +1,15 @@
+server:
+  port: 9006
+
+spring:
+  application:
+    name: location-provider-service
+  kafka:
+    bootstrap-servers: localhost:29092
+  data:
+    elasticsearch:
+      cluster-name: es-cluster
+      cluster-nodes: localhost:9300
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
