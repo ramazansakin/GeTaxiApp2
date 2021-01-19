@@ -118,24 +118,30 @@ services:
       config-service:
         condition: service_started
 
-#  hystrix-dashboard-service:
-#    container_name: hystrix-dashboard-service
-#    image: hystrix-dashboard-service
-#    build: ./hystrix-dashboard
-#    ports:
-#      - '9090:9090'
-#    restart: on-failure
-#    depends_on:
-#      config-service:
-#        condition: service_healthy
-#
-#  user-service:
-#    container_name: user-service
-#    image: user-service
-#    build: ./user-service
-#    ports:
-#      - '9001:9001'
-#    depends_on:
-#      config-service:
-#        condition: service_healthy
-#    restart: on-failure
+  hystrix-dashboard-service:
+    container_name: hystrix-dashboard-service
+    image: hystrix-dashboard-service
+    build: ./hystrix-dashboard
+    ports:
+      - '9090:9090'
+    restart: on-failure
+    environment:
+      - SPR_PROFILE=docker
+      - CONFIG_SERVER_URL=http://config-service:8888/
+    depends_on:
+      config-service:
+        condition: service_healthy
+
+  user-service:
+    container_name: user-service
+    image: user-service
+    build: ./user-service
+    environment:
+      - SPR_PROFILE=docker
+      - CONFIG_SERVER_URL=http://config-service:8888/
+    ports:
+      - '9001:9001'
+    depends_on:
+      config-service:
+        condition: service_healthy
+    restart: on-failure

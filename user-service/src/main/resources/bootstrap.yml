@@ -1,18 +1,12 @@
 spring:
   profiles:
-    active: native
+    active: ${SPR_PROFILE:native}
   application:
     name: user-service
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: ${CONFIG_SERVER_URL:http://localhost:8888/}
 
----
 
-spring:
-  profiles: docker
-  application:
-    name: user-service
-  cloud:
-    config:
-      uri: http://config-service:8888
+sample:
+  variable: Sample var on ${spring.profiles.active} profile
