@@ -3,7 +3,7 @@ package com.rsakin.getaxi.proxy.service;
 import com.rsakin.getaxi.proxy.dao.feign.UserServiceFeign;
 import com.rsakin.getaxi.proxy.dao.model.User;
 import com.rsakin.getaxi.proxy.dao.model.UserDTO;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -18,13 +18,14 @@ import java.util.Map;
 
 
 @Service
-@RequiredArgsConstructor
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Qualifier("user-service")
-    private final UserServiceFeign userServiceFeign;
+    @Autowired
+    private UserServiceFeign userServiceFeign;
 
-    private final PasswordEncoder bcryptEncoder;
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
 
     private static final Map<String, User> userCache = new HashMap<>();
 
