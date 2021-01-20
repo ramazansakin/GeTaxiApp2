@@ -25,3 +25,11 @@ feign:
 
 sample:
   variable: Sample var on ${spring.profiles.active} profile
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 15000
