@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserServiceFeignFallback implements UserServiceFeign {
 
-    private static final String INFO_MSG = "User Service is temporarily unavailable: ";
+    private static final String INFO_MSG = "User Service is temporarily unavailable. Please try again soon.";
 
     @Override
     public ResponseEntity<User> findByUsername(String username) {

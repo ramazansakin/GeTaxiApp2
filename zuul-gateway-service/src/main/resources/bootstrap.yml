@@ -10,11 +10,18 @@ spring:
   cloud:
     config:
       uri: ${CONFIG_SERVER_URL:http://localhost:8888/}
+      fail-fast: true
   zipkin:
     base-url: ${ZIPKIN_SERVER:http://localhost:9411/}
   sleuth:
     enabled: true
 
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 10000
 
 sample:
   variable: Sample var on ${spring.profiles.active} profile
