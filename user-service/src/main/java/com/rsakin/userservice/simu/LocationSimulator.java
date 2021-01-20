@@ -51,7 +51,7 @@ public class LocationSimulator {
 
     private int getRandomLocation(double min, double max) {
         Random randomLoc = new Random();
-        return (int) ((randomLoc.nextDouble() * (max - min)) + min);
+        return (int) ((randomLoc.nextInt() * (max - min)) + min);
     }
 
     private void logCronTime() {
