@@ -20,7 +20,6 @@ import java.util.Map;
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
-    @Qualifier("user-service")
     @Autowired
     private UserServiceFeign userServiceFeign;
 
