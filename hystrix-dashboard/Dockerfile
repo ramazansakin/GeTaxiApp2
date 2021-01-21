@@ -5,4 +5,4 @@ ENV CONFIG_SERVER_URL=""
 ENV SPR_PROFILE=""
 EXPOSE 9090
 
-ENTRYPOINT ["java", "-jar","-Dspring.profiles.active=docker", "/hystrix-service-1.0-RELEASE.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=docker", "-jar", "/hystrix-service-1.0-RELEASE.jar"]
